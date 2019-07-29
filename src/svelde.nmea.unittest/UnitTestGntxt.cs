@@ -24,5 +24,4 @@ namespace svelde.nmea.unittest
             Assert.AreEqual(n.Text, "u-blox AG - www.u-blox.com");
         }
     }
-
 }
