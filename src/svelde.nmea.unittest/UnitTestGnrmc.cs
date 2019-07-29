@@ -8,7 +8,7 @@ namespace svelde.nmea.unittest
 
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethodParse()
         {
             // ARRANGE
 
@@ -21,6 +21,17 @@ namespace svelde.nmea.unittest
             n.Parse(m);
 
             // ASSERT
+
+            Assert.AreEqual(n.TimeOfFix, "143718.00");
+            Assert.AreEqual(n.NavigationReceiverWarning, "A");
+            Assert.AreEqual(n.Latitude, "4513.13793N");
+            Assert.AreEqual(n.Longitude, "01859.19704E");
+            Assert.AreEqual(n.SpeedOverGround, "0.050");
+            Assert.AreEqual(n.CourseMadeGood, "");
+            Assert.AreEqual(n.DateOfFix, "290719");
+            Assert.AreEqual(n.MagneticVariation, "");
+            Assert.AreEqual(n.ModeIndicator, "A");
         }
     }
+
 }
