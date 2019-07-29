@@ -11,9 +11,9 @@
     /// </summary>
     public class GnvtgMessage : NmeaMessage
     {
-        const string IDENTIFIER= "$GNVTG";
+        const string IDENTIFIER = "$GNVTG";
 
-        public string TrueTrackMadeGood { get; set;}
+        public string TrueTrackMadeGood { get; set; }
         public string MagneticTrackMadeGood { get; set; }
         public string GroundSpeedKnots { get; set; }
         public string GroundSpeedKilometersPerHour { get; set; }
@@ -21,7 +21,7 @@
 
         public void Parse(string nmeaLine)
         {
-            if (string.IsNullOrWhiteSpace(nmeaLine) 
+            if (string.IsNullOrWhiteSpace(nmeaLine)
                     || !nmeaLine.StartsWith(IDENTIFIER))
             {
                 throw new NmeaParseMismatchException();
@@ -29,13 +29,13 @@
 
             ParseChecksum(nmeaLine);
 
-            if(MandatoryChecksum != ExtractChecksum(nmeaLine))
+            if (MandatoryChecksum != ExtractChecksum(nmeaLine))
             {
                 throw new NmeaParseChecksumException();
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length+1);
+            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length + 1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
@@ -44,8 +44,8 @@
 
             // TODO: check existance of indexbefore inserting
 
-            TrueTrackMadeGood = items[0]+ items[1];
-            MagneticTrackMadeGood = items[2]+ items[3];
+            TrueTrackMadeGood = items[0] + items[1];
+            MagneticTrackMadeGood = items[2] + items[3];
             GroundSpeedKnots = items[4] + items[5];
             GroundSpeedKilometersPerHour = items[6] + items[7];
             ModeIndicator = items[8];

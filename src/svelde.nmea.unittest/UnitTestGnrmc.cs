@@ -5,7 +5,6 @@ namespace svelde.nmea.unittest
 {
     [TestClass]
     public class UnitTestGnrmc
-
     {
         [TestMethod]
         public void TestMethodParse()
@@ -33,5 +32,4 @@ namespace svelde.nmea.unittest
             Assert.AreEqual(n.ModeIndicator, "A");
         }
     }
-
 }
