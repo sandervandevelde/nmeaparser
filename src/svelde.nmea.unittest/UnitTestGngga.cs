@@ -33,4 +33,5 @@ namespace svelde.nmea.unittest
             Assert.AreEqual(n.StationIdNumberDGPS, "");
         }
     }
+
 }
