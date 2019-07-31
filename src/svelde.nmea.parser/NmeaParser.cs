@@ -7,6 +7,7 @@ namespace svelde.nmea.parser
         public NmeaParser()
         {
 
+
         }
 
         public NmeaMessage Parse(string nmeaLine)
