@@ -5,7 +5,7 @@ namespace svelde.nmea.parser
     /// <summary>
     /// Base message
     /// </summary>
-    public class NmeaMessage
+    public abstract class NmeaMessage
     {
         public string MandatoryChecksum { get; set; }
 
@@ -48,5 +48,7 @@ namespace svelde.nmea.parser
 
             return sentence.Substring(index+1);
         }
+
+        public abstract string GetIdentifier();
     }
 }

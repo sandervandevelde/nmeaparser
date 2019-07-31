@@ -16,13 +16,14 @@
     /// </summary>
     public class GntxtMessage : NmeaMessage
     {
-        const string IDENTIFIER = "$GNTXT";
+        public override string GetIdentifier() => "$GNTXT";
+
         public string Text { get; set; }
 
         public void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
-                    || !nmeaLine.StartsWith(IDENTIFIER))
+                    || !nmeaLine.StartsWith(GetIdentifier()))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -35,7 +36,7 @@
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length + 1);
+            var sentence = nmeaLine.Remove(0, GetIdentifier().Length + 1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));

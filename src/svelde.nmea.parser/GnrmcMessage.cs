@@ -24,7 +24,7 @@
     /// </summary>
     public class GnrmcMessage : NmeaMessage
     {
-        const string IDENTIFIER= "$GNRMC";
+        public override string GetIdentifier() => "$GNRMC";
 
         public string TimeOfFix { get; set; }
         public string NavigationReceiverWarning { get; set; }
@@ -39,7 +39,7 @@
         public void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine) 
-                    || !nmeaLine.StartsWith(IDENTIFIER))
+                    || !nmeaLine.StartsWith(GetIdentifier()))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -52,7 +52,7 @@
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length+1);
+            var sentence = nmeaLine.Remove(0, GetIdentifier().Length+1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));

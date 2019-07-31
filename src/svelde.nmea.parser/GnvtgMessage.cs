@@ -11,8 +11,7 @@
     /// </summary>
     public class GnvtgMessage : NmeaMessage
     {
-        const string IDENTIFIER = "$GNVTG";
-
+        public override string GetIdentifier() => "$GNVTG";
         public string TrueTrackMadeGood { get; set; }
         public string MagneticTrackMadeGood { get; set; }
         public string GroundSpeedKnots { get; set; }
@@ -22,7 +21,7 @@
         public void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
-                    || !nmeaLine.StartsWith(IDENTIFIER))
+                    || !nmeaLine.StartsWith(GetIdentifier()))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -35,7 +34,7 @@
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length + 1);
+            var sentence = nmeaLine.Remove(0, GetIdentifier().Length + 1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));

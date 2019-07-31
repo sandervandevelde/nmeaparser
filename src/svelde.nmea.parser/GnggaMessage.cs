@@ -20,8 +20,6 @@
     /// </summary>
     public class GnggaMessage : NmeaMessage
     {
-        const string IDENTIFIER= "$GNGGA";
-
         public string FixTaken { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
@@ -33,11 +31,12 @@
         public string SecondsSinceLastUpdateDGPS { get; set; }
         public string StationIdNumberDGPS { get; set; }
 
+        public override string GetIdentifier() => "$GNGGA";
 
         public void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine) 
-                    || !nmeaLine.StartsWith(IDENTIFIER))
+                    || !nmeaLine.StartsWith(GetIdentifier()))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -50,7 +49,7 @@
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length+1);
+            var sentence = nmeaLine.Remove(0, GetIdentifier().Length+1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));

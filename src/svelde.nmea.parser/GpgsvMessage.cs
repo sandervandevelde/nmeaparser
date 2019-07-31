@@ -20,8 +20,7 @@ namespace svelde.nmea.parser
     /// </summary>
     public class GpgsvMessage : NmeaMessage
     {
-        const string IDENTIFIER = "$GPGSV";
-
+        public override string GetIdentifier() => "$GPGSV";
         public string NumberOfSentences { get; set; }
         public string SentenceNr { get; set; }
         public string NumberOFSatelitesInView { get; set; }
@@ -30,7 +29,7 @@ namespace svelde.nmea.parser
         public void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
-                    || !nmeaLine.StartsWith(IDENTIFIER))
+                    || !nmeaLine.StartsWith(GetIdentifier()))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -43,7 +42,7 @@ namespace svelde.nmea.parser
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length + 1);
+            var sentence = nmeaLine.Remove(0, GetIdentifier().Length + 1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));

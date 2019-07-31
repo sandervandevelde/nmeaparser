@@ -3,6 +3,14 @@ using svelde.nmea.parser;
 
 namespace svelde.nmea.unittest
 {
+    public class TestMessage : NmeaMessage
+    {
+        public override string GetIdentifier()
+        {
+            return "test";
+        }
+    }
+
     [TestClass]
     public class UnitTestNmea
     {
@@ -11,7 +19,7 @@ namespace svelde.nmea.unittest
         {
             // ARRANGE
 
-            var n = new NmeaMessage();
+            var n = new TestMessage();
 
             var m = "$GNRMC,143718.00,A,4513.13793,N,01859.19704,E,0.050,,290719,,,A*65";
 
@@ -29,7 +37,7 @@ namespace svelde.nmea.unittest
         {
             // ARRANGE
 
-            var n = new NmeaMessage();
+            var n = new TestMessage();
 
             var m = "$GNRMC,143718.00,A,4513.13793,N,01859.19704,E,0.050,,290719,,,A*65";
 
@@ -47,7 +55,7 @@ namespace svelde.nmea.unittest
         {
             // ARRANGE
 
-            var n = new NmeaMessage();
+            var n = new TestMessage();
 
             var m = "$GNRMC,143718.00,A,4513.13793,N,01859.19704,E,0.050,,290719,,,A";
 

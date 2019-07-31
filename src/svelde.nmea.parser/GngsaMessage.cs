@@ -16,7 +16,7 @@
     /// </summary>
     public class GngsaMessage : NmeaMessage
     {
-        const string IDENTIFIER= "$GNGSA";
+        public override string GetIdentifier() => "$GNGSA";
 
         public string AutoSelection{ get; set; }
         public string Fix3D { get; set; }
@@ -28,7 +28,7 @@
         public void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine) 
-                    || !nmeaLine.StartsWith(IDENTIFIER))
+                    || !nmeaLine.StartsWith(GetIdentifier()))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -41,7 +41,7 @@
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, IDENTIFIER.Length+1);
+            var sentence = nmeaLine.Remove(0, GetIdentifier().Length+1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
