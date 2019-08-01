@@ -38,6 +38,7 @@ namespace svelde.nmea.app
                 { typeof(GnvtgMessage), () => { Console.WriteLine("gnvtg"); } },
                 { typeof(GpgsvMessage), () => { Console.WriteLine("gpgsv"); } },
                 { typeof(GlgsvMessage), () => { Console.WriteLine("glgsv"); } },
+                { typeof(GbgsvMessage), () => { Console.WriteLine("gbgsv"); } },
             };
 
             @switch[e.GetType()]();
