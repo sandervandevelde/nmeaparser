@@ -170,7 +170,7 @@ namespace svelde.nmea.app
                 var nextDollarIndex = _textBuffer.IndexOf('$');
 
                 // current nmea message is available from start to next message. (clean it up)
-                var nmeaSentence = _textBuffer.Substring(0, nextDollarIndex).Replace("\n", string.Empty).Replace("\r", string.Empty);
+                var nmeaSentence = "$" + _textBuffer.Substring(0, nextDollarIndex).Replace("\n", string.Empty).Replace("\r", string.Empty);
 
                 // remove current message from buffer
                 _textBuffer = _textBuffer.Substring(nextDollarIndex + 1);

@@ -33,7 +33,7 @@
 
         public override string GetIdentifier() => "$GNGGA";
 
-        public void Parse(string nmeaLine)
+        public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine) 
                     || !nmeaLine.StartsWith(GetIdentifier()))

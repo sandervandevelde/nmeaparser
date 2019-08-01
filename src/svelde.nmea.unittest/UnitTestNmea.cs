@@ -9,6 +9,11 @@ namespace svelde.nmea.unittest
         {
             return "test";
         }
+
+        public override void Parse(string nmeaLine)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     [TestClass]

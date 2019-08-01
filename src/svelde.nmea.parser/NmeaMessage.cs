@@ -50,5 +50,7 @@ namespace svelde.nmea.parser
         }
 
         public abstract string GetIdentifier();
+
+        public abstract void Parse(string nmeaLine);
     }
 }

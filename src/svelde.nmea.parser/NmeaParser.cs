@@ -3,42 +3,56 @@
 namespace svelde.nmea.parser
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Unity;
     using Unity.Injection;
 
     public class NmeaParser
     {
-        private Dictionary<string, NmeaMessage> _parser;
+        private Dictionary<string, NmeaMessage> _parsers;
 
         public NmeaParser()
         {
-            _parser = new Dictionary<string, NmeaMessage>();
+            _parsers = new Dictionary<string, NmeaMessage>();
 
             var gga = new GnggaMessage();
-            _parser.Add(gga.GetIdentifier(), gga);
+            _parsers.Add(gga.GetIdentifier(), gga);
 
             var gll = new GngllMessage();
-            _parser.Add(gll.GetIdentifier(), gll);
+            _parsers.Add(gll.GetIdentifier(), gll);
 
             var gsa = new GngsaMessage();
-            _parser.Add(gsa.GetIdentifier(), gsa);
+            _parsers.Add(gsa.GetIdentifier(), gsa);
 
             var gsv = new GpgsvMessage();
-            _parser.Add(gsv.GetIdentifier(), gsv);
+            _parsers.Add(gsv.GetIdentifier(), gsv);
 
             var rmc = new GnrmcMessage();
-            _parser.Add(rmc.GetIdentifier(), rmc);
+            _parsers.Add(rmc.GetIdentifier(), rmc);
 
             var txt = new GntxtMessage();
-            _parser.Add(txt.GetIdentifier(), txt);
+            _parsers.Add(txt.GetIdentifier(), txt);
 
             var vtg = new GnvtgMessage();
-            _parser.Add(vtg.GetIdentifier(), vtg);
+            _parsers.Add(vtg.GetIdentifier(), vtg);
         }
 
-        public NmeaMessage Parse(string nmeaLine)
+        public void Parse(string nmeaLine)
         {
-            return null;
+
+            if (_parsers.ContainsKey(nmeaLine.Substring(0, 6)))
+            {
+                var p = _parsers.First(x => x.Key == nmeaLine.Substring(0, 6)).Value;
+
+                p.Parse(nmeaLine);
+
+                if (NmeaMessageParsed != null)
+                {
+                    NmeaMessageParsed(this, p);
+                }
+            }
         }
+
+        public event EventHandler<NmeaMessage> NmeaMessageParsed;
     }
 }

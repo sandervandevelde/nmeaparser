@@ -26,7 +26,7 @@ namespace svelde.nmea.parser
         public string NumberOFSatelitesInView { get; set; }
 
         public List<Satelite> Satelites { get; private set; }
-        public void Parse(string nmeaLine)
+        public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
                     || !nmeaLine.StartsWith(GetIdentifier()))
