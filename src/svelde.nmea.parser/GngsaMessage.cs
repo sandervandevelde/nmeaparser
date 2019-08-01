@@ -8,7 +8,7 @@
     ///           A Auto selection of 2D or 3D fix(M = manual)
     ///           3            3D fix
     ///           04,05...     PRNs of satellites used for fix(space for 12)
-    ///           2.5          PDOP(dilution of precision)
+    ///           2.5          PDOP(Percent dilution of precision)
     ///           1.3          Horizontal dilution of precision(HDOP)
     ///           2.1          Vertical dilution of precision(VDOP)
     ///             DOP is an indication of the effect of satellite geometry on
@@ -21,7 +21,7 @@
         public string AutoSelection{ get; set; }
         public string Fix3D { get; set; }
         public string PrnsOfSatellitesUsedForFix { get; set; }
-        public string PDop { get; set; }
+        public string PercentDop { get; set; }
         public string HorizontalPod { get; set; }
         public string VerticalPod { get; set; }
 
@@ -53,7 +53,7 @@
             AutoSelection = items[0];
             Fix3D = items[1];
             PrnsOfSatellitesUsedForFix = items[2] +","+ items[3] + "," + items[4] + "," + items[5] + "," + items[6] + "," + items[7] + "," + items[8] + "," + items[9] + "," + items[10] + "," + items[11] + "," + items[12] + "," + items[13];
-            PDop = items[14];
+            PercentDop = items[14];
             HorizontalPod= items[15];
             VerticalPod  = items[16];
         }
