@@ -24,7 +24,7 @@ namespace svelde.nmea.parser
         public override string GetIdentifier() => "$GPGSV";
         public string NumberOfSentences { get; set; }
         public string SentenceNr { get; set; }
-        public string NumberOFSatelitesInView { get; set; }
+        public string NumberOfSatelitesInView { get; set; }
 
         public List<Satelite> Satelites { get; private set; }
         public override void Parse(string nmeaLine)
@@ -54,7 +54,7 @@ namespace svelde.nmea.parser
 
             NumberOfSentences = items[0];
             SentenceNr = items[1];
-            NumberOFSatelitesInView = items[2];
+            NumberOfSatelitesInView = items[2];
 
             var sateliteCount = (items.Length - 3)/4;
 
@@ -78,7 +78,18 @@ namespace svelde.nmea.parser
                 // TODO: better line and number of satelites parsing needed
             }
         }
-    }
 
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} InView:{NumberOfSatelitesInView} ";
+
+            foreach(var s in Satelites)
+            {
+                result += $"{s.SatelitePrnNumber}: Azi={s.AzimuthDegrees}° Ele={s.ElevationDegrees}° Str={s.SignalStrength}; ";
+            }
+
+            return result; 
+        }
+    }
 }
 

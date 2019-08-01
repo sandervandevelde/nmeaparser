@@ -30,15 +30,15 @@ namespace svelde.nmea.app
         private static void NmeaMessageParsed(object sender, NmeaMessage e)
         {
             var @switch = new Dictionary<Type, Action> {
-                { typeof(GnggaMessage), () => { Console.WriteLine("gngga"); } },
-                { typeof(GngllMessage), () => { Console.WriteLine("gngll"); } },
-                { typeof(GngsaMessage), () => { Console.WriteLine("gngsa"); } },
-                { typeof(GnrmcMessage), () => { Console.WriteLine("gnrmc"); } },
-                { typeof(GntxtMessage), () => { Console.WriteLine("gntxt"); } },
-                { typeof(GnvtgMessage), () => { Console.WriteLine("gnvtg"); } },
-                { typeof(GpgsvMessage), () => { Console.WriteLine("gpgsv"); } },
-                { typeof(GlgsvMessage), () => { Console.WriteLine("glgsv"); } },
-                { typeof(GbgsvMessage), () => { Console.WriteLine("gbgsv"); } },
+                { typeof(GnggaMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GngllMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GngsaMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GnrmcMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GntxtMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GnvtgMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GpgsvMessage), () => { Console.WriteLine($"{e}(GPS)"); } },
+                { typeof(GlgsvMessage), () => { Console.WriteLine($"{e}(Glosnass)"); } },
+                { typeof(GbgsvMessage), () => { Console.WriteLine($"{e}(Baidoo)"); } },
             };
 
             @switch[e.GetType()]();

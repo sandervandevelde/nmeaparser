@@ -24,7 +24,7 @@ namespace svelde.nmea.unittest
 
             Assert.AreEqual(n.NumberOfSentences, "3");
             Assert.AreEqual(n.SentenceNr, "1");
-            Assert.AreEqual(n.NumberOFSatelitesInView, "10");
+            Assert.AreEqual(n.NumberOfSatelitesInView, "10");
             Assert.AreEqual(n.Satelites.Count, 4);
         }
     }
