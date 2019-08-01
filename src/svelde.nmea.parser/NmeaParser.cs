@@ -27,6 +27,9 @@ namespace svelde.nmea.parser
             var gsv = new GpgsvMessage();
             _parsers.Add(gsv.GetIdentifier(), gsv);
 
+            var glgsv = new GlgsvMessage();
+            _parsers.Add(glgsv.GetIdentifier(), glgsv);
+
             var rmc = new GnrmcMessage();
             _parsers.Add(rmc.GetIdentifier(), rmc);
 

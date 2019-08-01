@@ -2,6 +2,7 @@
 
 namespace svelde.nmea.parser
 {
+
     /// <summary>
     ///$GPGSV,3,1,10,01,50,304,26,03,24,245,16,08,56,204,28,10,21,059,20*77
     ///$GPGSV,3,2,10,11,61,296,29,18,76,325,19,22,46,251,20,27,25,169,19*7E
@@ -58,17 +59,23 @@ namespace svelde.nmea.parser
             var sateliteCount = (items.Length - 3)/4;
 
             Satelites = new List<Satelite>();
-
-            for (int i = 0; i < 4; i++)
+            try
             {
-                Satelites.Add(
-                    new Satelite
-                    {
-                        SatelitePrnNumber = items[3 + (i*4) + 0],
-                        ElevationDegrees = items[3 + (i * 4) + 1],
-                        AzimuthDegrees = items[3 + (i * 4) + 2],
-                        SignalStrength = items[3 + (i * 4) + 3],
-                    });
+                for (int i = 0; i < 4; i++)
+                {
+                    Satelites.Add(
+                        new Satelite
+                        {
+                            SatelitePrnNumber = items[3 + (i * 4) + 0],
+                            ElevationDegrees = items[3 + (i * 4) + 1],
+                            AzimuthDegrees = items[3 + (i * 4) + 2],
+                            SignalStrength = items[3 + (i * 4) + 3],
+                        });
+                }
+            }
+            catch
+            {
+                // TODO: better line and number of satelites parsing needed
             }
         }
     }
