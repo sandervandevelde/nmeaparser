@@ -53,6 +53,13 @@
             DataValid = items[5];
             ModeIndicator = items[6];
         }
+
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} Latitude:{Latitude} Longitude:{Longitude} Fix:{FixTaken} Valid:{DataValid} Mode:{ModeIndicator}";
+
+            return result;
+        }
     }
 }
 

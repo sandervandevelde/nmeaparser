@@ -48,7 +48,13 @@
             Text = items[3];
           
         }
-    }
 
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} Text:{Text} ";
+
+            return result;
+        }
+    }
 }
 

@@ -71,7 +71,13 @@
             MagneticVariation = items[9]+ items[10];
             ModeIndicator = items[11];
         }
-    }
 
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} Time:{TimeOfFix} Warning:{NavigationReceiverWarning} Latitude:{Latitude} Longitude:{Longitude} Speed:{SpeedOverGround} Course:{CourseMadeGood} Date:{DateOfFix} Variation:{MagneticVariation} Mode:{ModeIndicator} ";
+
+            return result;
+        }
+    }
 }
 

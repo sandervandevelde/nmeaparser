@@ -22,8 +22,8 @@
         public string Fix3D { get; set; }
         public string PrnsOfSatellitesUsedForFix { get; set; }
         public string PercentDop { get; set; }
-        public string HorizontalPod { get; set; }
-        public string VerticalPod { get; set; }
+        public string HorizontalDop { get; set; }
+        public string VerticalDop { get; set; }
 
         public override void Parse(string nmeaLine)
         {
@@ -54,10 +54,17 @@
             Fix3D = items[1];
             PrnsOfSatellitesUsedForFix = items[2] +","+ items[3] + "," + items[4] + "," + items[5] + "," + items[6] + "," + items[7] + "," + items[8] + "," + items[9] + "," + items[10] + "," + items[11] + "," + items[12] + "," + items[13];
             PercentDop = items[14];
-            HorizontalPod= items[15];
-            VerticalPod  = items[16];
+            HorizontalDop= items[15];
+            VerticalDop  = items[16];
         }
-    }
 
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{PrnsOfSatellitesUsedForFix} PDop:{PercentDop} HDop:{HorizontalDop} VDop:{VerticalDop} ";
+
+            return result;
+        }
+
+    }
 }
 

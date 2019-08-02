@@ -1,6 +1,7 @@
 ﻿using svelde.nmea.parser;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace svelde.nmea.app
 {
@@ -8,8 +9,14 @@ namespace svelde.nmea.app
     {
         private static NmeaParser _parser;
 
+        private static StreamWriter _w;
+
         static void Main(string[] args)
         {
+            var utc = DateTime.UtcNow;
+            var fileName = $"{utc.Year}-{utc.Month}-{utc.Day}={utc.Hour}-{utc.Minute}-{utc.Second}.log";
+            _w = File.AppendText(fileName);
+
             Console.WriteLine("Read serial port");
 
             _parser = new NmeaParser();
@@ -46,6 +53,8 @@ namespace svelde.nmea.app
 
         private static void NmeaSentenceReceived(object sender, NmeaSentence e)
         {
+            _w.WriteLine(e.Sentence);
+
             _parser.Parse(e.Sentence);
         }
     }

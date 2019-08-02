@@ -26,8 +26,8 @@ namespace svelde.nmea.unittest
             Assert.AreEqual(n.Fix3D, "3");
             Assert.AreEqual(n.PrnsOfSatellitesUsedForFix, "01,18,32,08,11,,,,,,,");
             Assert.AreEqual(n.PercentDop, "6.16");
-            Assert.AreEqual(n.HorizontalPod, "1.86");
-            Assert.AreEqual(n.VerticalPod, "5.88");
+            Assert.AreEqual(n.HorizontalDop, "1.86");
+            Assert.AreEqual(n.VerticalDop, "5.88");
         }
     }
 

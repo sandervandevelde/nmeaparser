@@ -69,6 +69,13 @@
             SecondsSinceLastUpdateDGPS = items[12];
             StationIdNumberDGPS = items[13];
         }
+
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod} Altitude:{AltitudeMetres}mtr Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
+
+            return result;
+        }
     }
 }
 

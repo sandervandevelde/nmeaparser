@@ -49,6 +49,12 @@
             GroundSpeedKilometersPerHour = items[6] + items[7];
             ModeIndicator = items[8];
         }
+
+        public override string ToString()
+        {
+            var result = $"{GetIdentifier()} Truetrack:{TrueTrackMadeGood} MagneticTrack:{MagneticTrackMadeGood} Speed:{GroundSpeedKnots}kn Speed:{GroundSpeedKilometersPerHour}km/h Mode:{ModeIndicator}";
+
+            return result;
+        }
     }
 }
-
