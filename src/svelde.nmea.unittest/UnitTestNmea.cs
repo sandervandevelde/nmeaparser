@@ -15,7 +15,7 @@ namespace svelde.nmea.unittest
             throw new System.NotImplementedException();
         }
     }
-
+    
     [TestClass]
     public class UnitTestNmea
     {
