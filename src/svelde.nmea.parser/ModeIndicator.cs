@@ -2,16 +2,36 @@
 
 namespace svelde.nmea.parser
 {
-    public class ModeIndicator : Dictionary<char,string>
-	{
-        public ModeIndicator()
+    public class ModeIndicator
+    {
+        private Dictionary<char, string> _modeIndicators;
+
+        public ModeIndicator(string modeIndicator)
         {
-            this.Add('A', "Autonomous");
-            this.Add('D', "Differential");
-            this.Add('E', "Estimated(dead reckoning) mode");
-            this.Add('M', "Manual input");
-            this.Add('N', "Data not valid");
+            _modeIndicators = new Dictionary<char, string>();
+            _modeIndicators.Add('A', "Autonomous");
+            _modeIndicators.Add('D', "Differential");
+            _modeIndicators.Add('E', "Estimated(dead reckoning) mode");
+            _modeIndicators.Add('M', "Manual input");
+            _modeIndicators.Add('N', "Data not valid");
+
+            if(!string.IsNullOrEmpty(modeIndicator) 
+                && _modeIndicators.ContainsKey(modeIndicator[0]))
+            {
+                Mode = _modeIndicators[modeIndicator[0]];
+            }
+            else
+            {
+                Mode = _modeIndicators['N'];
+            }
         }
-	}
+
+        public string Mode { get; private set; }
+
+        public override string ToString()
+        {
+            return Mode;
+        }
+    }
 }
 

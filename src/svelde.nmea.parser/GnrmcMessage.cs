@@ -34,7 +34,7 @@
         public string CourseMadeGood { get; set; }
         public string DateOfFix { get; set; }
         public string MagneticVariation { get; set; }
-        public string ModeIndicator { get; set; }
+        public ModeIndicator ModeIndicator { get; set; }
 
         public override void Parse(string nmeaLine)
         {
@@ -69,7 +69,10 @@
             CourseMadeGood = items[7];
             DateOfFix = items[8];
             MagneticVariation = items[9]+ items[10];
-            ModeIndicator = items[11];
+
+            ModeIndicator = items.Length > 11
+                ? new ModeIndicator(items[11])
+                : new ModeIndicator("");
         }
 
         public override string ToString()

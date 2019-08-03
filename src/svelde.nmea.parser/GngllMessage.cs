@@ -20,7 +20,7 @@
         public Location Longitude { get; set; }
         public string FixTaken { get; set; }
         public string DataValid { get; set; }
-        public string ModeIndicator { get; set; }
+        public ModeIndicator ModeIndicator { get; set; }
 
         public override void Parse(string nmeaLine)
         {
@@ -51,7 +51,10 @@
             Longitude = new Location(items[2]+ items[3]);
             FixTaken = items[4];
             DataValid = items[5];
-            ModeIndicator = items[6];
+
+            ModeIndicator = items.Length > 6
+                ? new ModeIndicator(items[6])
+                : new ModeIndicator("");
         }
 
         public override string ToString()

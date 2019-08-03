@@ -16,7 +16,7 @@
         public string MagneticTrackMadeGood { get; set; }
         public string GroundSpeedKnots { get; set; }
         public string GroundSpeedKilometersPerHour { get; set; }
-        public string ModeIndicator { get; set; }
+        public ModeIndicator ModeIndicator { get; set; }
 
         public override void Parse(string nmeaLine)
         {
@@ -47,7 +47,10 @@
             MagneticTrackMadeGood = items[2] + items[3];
             GroundSpeedKnots = items[4] + items[5];
             GroundSpeedKilometersPerHour = items[6] + items[7];
-            ModeIndicator = items[8];
+
+            ModeIndicator = items.Length > 8
+                ? new ModeIndicator(items[8])
+                : new ModeIndicator("");
         }
 
         public override string ToString()
