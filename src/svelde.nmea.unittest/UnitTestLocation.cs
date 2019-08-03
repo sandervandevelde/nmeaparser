@@ -38,7 +38,7 @@ namespace svelde.nmea.unittest
 
             ///ASSERT
 
-            Assert.AreEqual<double>(40.613820666666669, d);
+            Assert.AreEqual("40.61382", d.ToString("0.00000"));
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace svelde.nmea.unittest
 
             ///ASSERT
 
-            Assert.AreEqual<double>(-40.613820666666669, d);
+            Assert.AreEqual("-40.61382", d.ToString("0.00000"));
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace svelde.nmea.unittest
 
             ///ASSERT
 
-            Assert.AreEqual<double>(24.612909833333333, d);
+            Assert.AreEqual("24.61291", d.ToString("0.00000"));
         }
 
         [TestMethod]
@@ -89,7 +89,7 @@ namespace svelde.nmea.unittest
 
             ///ASSERT
 
-            Assert.AreEqual<double>(-24.612909833333333, d);
+            Assert.AreEqual("-24.61291", d.ToString("0.00000"));
         }
     }
 }

@@ -16,8 +16,8 @@
     {
         public override string GetIdentifier() => "$GNGLL";
 
-        public string Latitude { get; set;}
-        public string Longitude { get; set; }
+        public Location Latitude { get; set;}
+        public Location Longitude { get; set; }
         public string FixTaken { get; set; }
         public string DataValid { get; set; }
         public string ModeIndicator { get; set; }
@@ -47,8 +47,8 @@
 
             // TODO: check existance of indexbefore inserting
 
-            Latitude = items[0]+ items[1];
-            Longitude = items[2]+ items[3];
+            Latitude = new Location(items[0]+ items[1]);
+            Longitude = new Location(items[2]+ items[3]);
             FixTaken = items[4];
             DataValid = items[5];
             ModeIndicator = items[6];

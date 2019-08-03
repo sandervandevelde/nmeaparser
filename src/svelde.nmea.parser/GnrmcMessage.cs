@@ -28,8 +28,8 @@
 
         public string TimeOfFix { get; set; }
         public string NavigationReceiverWarning { get; set; }
-        public string Latitude { get; set;}
-        public string Longitude { get; set; }
+        public Location Latitude { get; set;}
+        public Location Longitude { get; set; }
         public string SpeedOverGround { get; set; }
         public string CourseMadeGood { get; set; }
         public string DateOfFix { get; set; }
@@ -63,8 +63,8 @@
 
             TimeOfFix = items[0];
             NavigationReceiverWarning = items[1];
-            Latitude = items[2]+ items[3];
-            Longitude = items[4]+ items[5];
+            Latitude = new Location (items[2]+ items[3]);
+            Longitude = new Location(items[4]+ items[5]);
             SpeedOverGround = items[6];
             CourseMadeGood = items[7];
             DateOfFix = items[8];

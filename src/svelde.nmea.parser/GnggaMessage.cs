@@ -21,8 +21,8 @@
     public class GnggaMessage : NmeaMessage
     {
         public string FixTaken { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
+        public Location Latitude { get; set; }
+        public Location Longitude { get; set; }
         public string FixQuality { get; set; }
         public string NumberOfSatellites { get; set; }
         public string HorizontalPod { get; set; }
@@ -59,8 +59,8 @@
             // TODO: check existance of indexbefore inserting
 
             FixTaken = items[0];
-            Latitude = items[1] + items[2];
-            Longitude = items[3] + items[4];
+            Latitude = new Location(items[1] + items[2]);
+            Longitude = new Location(items[3] + items[4]);
             FixQuality = items[5];
             NumberOfSatellites  = items[6];
             HorizontalPod  = items[7];
