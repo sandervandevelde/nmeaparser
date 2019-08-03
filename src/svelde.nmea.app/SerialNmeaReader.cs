@@ -14,8 +14,6 @@ namespace svelde.nmea.app
 
         private string _textBuffer = string.Empty;
 
-        private ushort _messageCounter = 0;
-
         public SerialReader()
         {
         }
@@ -99,8 +97,6 @@ namespace svelde.nmea.app
                     }
 
                     _textBuffer = string.Empty;
-
-                    _messageCounter = 0;
 
                     if (!restart)
                     {
