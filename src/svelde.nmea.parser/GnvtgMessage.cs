@@ -62,7 +62,7 @@
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} Truetrack:{TrueTrackMadeGood} MagneticTrack:{MagneticTrackMadeGood} Speed:{GroundSpeedKnots}kn Speed:{GroundSpeedKilometersPerHour}km/h Mode:{ModeIndicator}";
+            var result = $"{GetIdentifier()} Truetrack:{TrueTrackMadeGood} MagneticTrack:{MagneticTrackMadeGood} Speed:{GroundSpeedKnots}/{GroundSpeedKilometersPerHour} Mode:{ModeIndicator}";
 
             return result;
         }
