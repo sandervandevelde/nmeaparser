@@ -19,7 +19,7 @@ namespace svelde.nmea.parser
         /// (d)dd + (mm.mmmm/60) (* -1 for W and S)
         /// </summary>
         /// <returns></returns>
-        public float ToDecimalDegrees()
+        public decimal ToDecimalDegrees()
         {
             if (string.IsNullOrEmpty(Degree))
             {
@@ -40,7 +40,7 @@ namespace svelde.nmea.parser
 
             var plusMinus = nesw == "S" || nesw == "W" ? -1 : 1;
 
-            var result = (Convert.ToSingle(degree) + (Convert.ToSingle(minute) / 60.0f)) * plusMinus;
+            var result = (Convert.ToDecimal(degree) + (Convert.ToDecimal(minute) / 60.0m)) * plusMinus;
 
             return result;
         }

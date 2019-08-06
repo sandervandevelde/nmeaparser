@@ -9,6 +9,8 @@ namespace svelde.nmea.app
 {
     class Program
     {
+        private static DateTime _LastSent;
+
         private static NmeaParser _parser;
 
         private static StreamWriter _streamWriter;
@@ -17,13 +19,17 @@ namespace svelde.nmea.app
 
         static void Main(string[] args)
         {
+            _LastSent = DateTime.Now;
+
             var utc = DateTime.UtcNow;
             var fileName = $"{utc.Year}-{utc.Month}-{utc.Day}={utc.Hour}-{utc.Minute}-{utc.Second}.log";
             _streamWriter = File.AppendText(fileName);
 
             try
             {
-                _deviceClient = DeviceClient.CreateFromConnectionString("");
+                var connectionString = " ";
+
+                _deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
 
             }
             catch (Exception ex)
@@ -61,14 +67,24 @@ namespace svelde.nmea.app
                         return;
                     }
 
+                    if  (_LastSent >= DateTime.Now.AddSeconds(-10))
+                    {
+                        return;
+                    }
+
                     try
                     {
+                        _LastSent = DateTime.Now;
+
                         var telemetry = new Telemetry
                         {
-                            Latitude = (e as GngllMessage).Latitude,
-                            Longitude = (e as GngllMessage).Longitude,
-                            FixTaken = (e as GngllMessage).FixTaken,
-                            ModeIndicator = (e as GngllMessage).ModeIndicator,
+                            location = new TelemetryLocation
+                                        {
+                                           lat = (e as GngllMessage).Latitude.ToDecimalDegrees(),
+                                           lon = (e as GngllMessage).Longitude.ToDecimalDegrees()
+                                        },
+                            fixTaken = (e as GngllMessage).FixTaken,
+                            modeIndicator = (e as GngllMessage).ModeIndicator,
                         };
 
                         var message = new Message(Encoding.ASCII.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(telemetry)));
@@ -102,9 +118,15 @@ namespace svelde.nmea.app
 
     public class Telemetry
     {
-        public Location Latitude { get; set; }
-        public Location Longitude { get; set; }
-        public ModeIndicator ModeIndicator { get; set; }
-        public string FixTaken { get; set; }
+        public TelemetryLocation location { get; set; }
+        public ModeIndicator modeIndicator { get; set; }
+        public string fixTaken { get; set; }
+    }
+
+    public class TelemetryLocation
+    {
+        public decimal lat { get; set; }
+        public decimal lon { get; set; }
+        public decimal? alt { get; set; }
     }
 }

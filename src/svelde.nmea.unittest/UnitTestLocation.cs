@@ -19,7 +19,7 @@ namespace svelde.nmea.unittest
 
             ///ASSERT
 
-            Assert.AreEqual<double>(-1, d);
+            Assert.AreEqual<decimal>(-1, d);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace svelde.nmea.unittest
 
             ///ASSERT
 
-            Assert.AreEqual("40.61382", d.ToString("0.00000"));
+            Assert.AreEqual("40.613821", d.ToString("0.000000"));
         }
 
         [TestMethod]
