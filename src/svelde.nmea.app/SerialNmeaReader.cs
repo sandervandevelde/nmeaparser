@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Threading;
-
+using System.Linq;
 
 namespace svelde.nmea.app
 {
@@ -10,12 +10,15 @@ namespace svelde.nmea.app
     /// </summary>
     public class SerialReader
     {
+        private Timer _timer;
+
         private SerialPort _port = null;
 
         private string _textBuffer = string.Empty;
 
         public SerialReader()
         {
+            _timer = new Timer(DetectDisconnectedSerialPort, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }
 
         public SerialReader(string portName) 
@@ -31,6 +34,22 @@ namespace svelde.nmea.app
             Parity = parity;
             DataBits = dataBits;
             StopBits = StopBits;
+        }
+
+        /// <summary>
+        /// Detect disconnected serial port.
+        /// Reset serialport on disconnection.
+        /// Workaround because the serial port does not generate an event when the serialport disappears.
+        /// </summary>
+        /// <param name="state"></param>
+        private void DetectDisconnectedSerialPort(object state)
+        {
+            if (_port != null
+                    && !_port.IsOpen)
+            {
+                Console.WriteLine($"Comport {PortName} not available anymore");
+                Reset();
+            }
         }
 
         public string PortName { get; set; } = "COM7";
