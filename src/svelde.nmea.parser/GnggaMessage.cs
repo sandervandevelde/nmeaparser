@@ -68,6 +68,13 @@
             HeightOfGeoid = items[10] + items[11];
             SecondsSinceLastUpdateDGPS = items[12];
             StationIdNumberDGPS = items[13];
+
+            OnNmeaMessageParsed(this);
+        }
+
+        protected override void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            base.OnNmeaMessageParsed(e);
         }
 
         public override string ToString()

@@ -76,6 +76,13 @@ namespace svelde.nmea.parser
                         SignalStrength = items[3 + (i * 4) + 3],
                     });
             }
+
+            OnNmeaMessageParsed(this);
+        }
+
+        protected override void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            base.OnNmeaMessageParsed(e);
         }
 
         private int GetSateliteCount(int numberOfSatelitesInView, int numberOfSentences, int sentenceNr)

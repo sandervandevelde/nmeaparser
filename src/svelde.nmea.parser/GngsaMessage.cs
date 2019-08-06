@@ -1,4 +1,8 @@
-﻿namespace svelde.nmea.parser
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace svelde.nmea.parser
 {
     /// <summary>
     ///$GNGSA,A,3,01,18,32,08,11,,,,,,,,6.16,1.86,5.88*16
@@ -13,20 +17,44 @@
     ///           2.1          Vertical dilution of precision(VDOP)
     ///             DOP is an indication of the effect of satellite geometry on
     ///             the accuracy of the fix.
+    ///             
+    /// http://continuouswave.com/ubb/Forum6/HTML/003694.html
+    /// NMEA ID 1 to 32: GPS
+    /// NMEA ID 33 to 64: WAAS
+    /// NMEA ID 65 to 96: GLONASS
+    /// Combines multiple Satelite ranges (from GPS, Glosnass, etc.) into one sentence 
+    /// If a new sentence of GPS arrives, dismiss old one and start collecting again
     /// </summary>
     public class GngsaMessage : NmeaMessage
     {
+        public GngsaMessage()
+        {
+            PrnsOfSatellitesUsedForFix = new List<int>();
+        }
+
+        // TODO: Make the (gps) range variable as parameter
+
         public override string GetIdentifier() => "$GNGSA";
 
         public string AutoSelection{ get; set; }
         public string Fix3D { get; set; }
-        public string PrnsOfSatellitesUsedForFix { get; set; }
         public string PercentDop { get; set; }
         public string HorizontalDop { get; set; }
         public string VerticalDop { get; set; }
 
+        public List<int> PrnsOfSatellitesUsedForFix { get; set; }
+
         public override void Parse(string nmeaLine)
         {
+            if (PrnsOfSatellitesUsedForFix.Any(x => x <= 32))
+            {
+                PrnsOfSatellitesUsedForFix.Sort();
+
+                OnNmeaMessageParsed(this);
+
+                PrnsOfSatellitesUsedForFix.Clear();
+            }
+
             if (string.IsNullOrWhiteSpace(nmeaLine) 
                     || !nmeaLine.StartsWith(GetIdentifier()))
             {
@@ -52,19 +80,51 @@
 
             AutoSelection = items[0];
             Fix3D = items[1];
-            PrnsOfSatellitesUsedForFix = items[2] +","+ items[3] + "," + items[4] + "," + items[5] + "," + items[6] + "," + items[7] + "," + items[8] + "," + items[9] + "," + items[10] + "," + items[11] + "," + items[12] + "," + items[13];
+
+            AddPrn(items[2]);
+            AddPrn(items[3]);
+            AddPrn(items[4]);
+            AddPrn(items[5]);
+            AddPrn(items[6]);
+            AddPrn(items[7]);
+            AddPrn(items[8]);
+            AddPrn(items[9]);
+            AddPrn(items[10]);
+            AddPrn(items[11]);
+            AddPrn(items[12]);
+            AddPrn(items[13]);
+
             PercentDop = items[14];
             HorizontalDop= items[15];
             VerticalDop  = items[16];
         }
 
+        public void AddPrn(string prn)
+        {
+            if (!string.IsNullOrEmpty(prn))
+            PrnsOfSatellitesUsedForFix.Add(Convert.ToInt32(prn));
+        }
+
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{PrnsOfSatellitesUsedForFix} PDop:{PercentDop} HDop:{HorizontalDop} VDop:{VerticalDop} ";
+            var prnsOfSatellitesUsedForFix = string.Empty;
+
+            foreach(var prn in PrnsOfSatellitesUsedForFix)
+            {
+                prnsOfSatellitesUsedForFix += $"{prn} ";
+            }
+
+            prnsOfSatellitesUsedForFix = prnsOfSatellitesUsedForFix.Trim();
+
+            var result = $"{GetIdentifier()} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{prnsOfSatellitesUsedForFix} PDop:{PercentDop} HDop:{HorizontalDop} VDop:{VerticalDop} ";
 
             return result;
         }
 
+        protected override void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            base.OnNmeaMessageParsed(e);
+        }
     }
 }
 

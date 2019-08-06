@@ -51,6 +51,13 @@
             ModeIndicator = items.Length > 8
                 ? new ModeIndicator(items[8])
                 : new ModeIndicator("");
+
+            OnNmeaMessageParsed(this);
+        }
+
+        protected override void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            base.OnNmeaMessageParsed(e);
         }
 
         public override string ToString()

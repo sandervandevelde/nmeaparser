@@ -46,7 +46,13 @@
             // TODO: check existance of indexbefore inserting
 
             Text = items[3];
-          
+
+            OnNmeaMessageParsed(this);
+        }
+
+        protected override void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            base.OnNmeaMessageParsed(e);
         }
 
         public override string ToString()

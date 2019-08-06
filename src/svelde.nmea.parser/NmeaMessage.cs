@@ -52,5 +52,15 @@ namespace svelde.nmea.parser
         public abstract string GetIdentifier();
 
         public abstract void Parse(string nmeaLine);
+
+        public event EventHandler<NmeaMessage> NmeaMessageParsed;
+
+        protected virtual void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            if (NmeaMessageParsed != null)
+            {
+                NmeaMessageParsed(this, e);
+            }
+        }
     }
 }

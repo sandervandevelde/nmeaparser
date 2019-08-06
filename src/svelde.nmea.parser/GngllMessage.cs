@@ -62,6 +62,13 @@ namespace svelde.nmea.parser
             ModeIndicator = items.Length > 6
                 ? new ModeIndicator(items[6])
                 : new ModeIndicator("");
+
+            OnNmeaMessageParsed(this);
+        }
+
+        protected override void OnNmeaMessageParsed(NmeaMessage e)
+        {
+            base.OnNmeaMessageParsed(e);
         }
 
         public override string ToString()
