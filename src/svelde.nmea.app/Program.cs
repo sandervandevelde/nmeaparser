@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Devices.Client;
+using Newtonsoft.Json;
 using svelde.nmea.parser;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace svelde.nmea.app
 
             try
             {
-                var connectionString = " ";
+                var connectionString = "";
 
                 _deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
 
@@ -78,16 +79,18 @@ namespace svelde.nmea.app
 
                         var telemetry = new Telemetry
                         {
-                            location = new TelemetryLocation
+                            Location = new TelemetryLocation
                                         {
-                                           lat = (e as GngllMessage).Latitude.ToDecimalDegrees(),
-                                           lon = (e as GngllMessage).Longitude.ToDecimalDegrees()
+                                           Latitude = (e as GngllMessage).Latitude.ToDecimalDegrees(),
+                                           Longitude = (e as GngllMessage).Longitude.ToDecimalDegrees()
                                         },
-                            fixTaken = (e as GngllMessage).FixTaken,
-                            modeIndicator = (e as GngllMessage).ModeIndicator,
+                            FixTaken = (e as GngllMessage).FixTaken,
+                            ModeIndicator = (e as GngllMessage).ModeIndicator,
                         };
 
-                        var message = new Message(Encoding.ASCII.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(telemetry)));
+                        var json = Newtonsoft.Json.JsonConvert.SerializeObject(telemetry);
+
+                        var message = new Message(Encoding.ASCII.GetBytes(json));
 
                         _deviceClient.SendEventAsync(message);
                     }
@@ -118,15 +121,21 @@ namespace svelde.nmea.app
 
     public class Telemetry
     {
-        public TelemetryLocation location { get; set; }
-        public ModeIndicator modeIndicator { get; set; }
-        public string fixTaken { get; set; }
+        [JsonProperty(PropertyName = "location")]
+        public TelemetryLocation Location { get; set; }
+        [JsonProperty(PropertyName = "modeIndicator")]
+        public ModeIndicator ModeIndicator { get; set; }
+        [JsonProperty(PropertyName = "fixTaken")]
+        public string FixTaken { get; set; }
     }
 
     public class TelemetryLocation
     {
-        public decimal lat { get; set; }
-        public decimal lon { get; set; }
-        public decimal? alt { get; set; }
+        [JsonProperty(PropertyName = "lat")]
+        public decimal Latitude { get; set; }
+        [JsonProperty(PropertyName = "lon")]
+        public decimal Longitude { get; set; }
+        [JsonProperty(PropertyName = "alt")]
+        public decimal? Altitude { get; set; }
     }
 }
