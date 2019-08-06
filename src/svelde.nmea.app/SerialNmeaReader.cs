@@ -18,6 +18,17 @@ namespace svelde.nmea.app
 
         public SerialReader()
         {
+            var portNames = SerialPort.GetPortNames();
+
+            var portNamesText = string.Empty;
+
+            foreach (var portName in portNames)
+            {
+                portNamesText += $"{PortName} ";
+            }
+
+            Console.WriteLine($"Ports available: {portNamesText}");
+
             _timer = new Timer(DetectDisconnectedSerialPort, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }
 
