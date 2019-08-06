@@ -210,8 +210,9 @@ namespace svelde.nmea.app
                     continue;
                 }
 
-                // nmea message start with code, contains a star and ends with checksum
-                // Hide: Console.WriteLine($"{_messageCounter++:D5}: {nmeaSentence}");
+                // nmea message start with "$" and code, contains a star and ends with checksum
+
+                // HOLD: Do not show the raw message = Console.WriteLine($"{nmeaSentence}");
 
                 if (NmeaSentenceReceived != null)
                 {

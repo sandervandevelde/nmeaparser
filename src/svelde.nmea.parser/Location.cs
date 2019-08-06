@@ -47,7 +47,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            return ToDecimalDegrees().ToString();
+            return ToDecimalDegrees().ToString("N8");
         }
     }
 }
