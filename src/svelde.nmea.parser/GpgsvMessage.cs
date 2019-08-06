@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace svelde.nmea.parser
 {
@@ -25,7 +26,6 @@ namespace svelde.nmea.parser
         public string NumberOfSentences { get; set; }
         public string SentenceNr { get; set; }
         public string NumberOfSatelitesInView { get; set; }
-
         public List<Satelite> Satelites { get; private set; }
         public override void Parse(string nmeaLine)
         {
@@ -56,26 +56,37 @@ namespace svelde.nmea.parser
             SentenceNr = items[1];
             NumberOfSatelitesInView = items[2];
 
-            var sateliteCount = (items.Length - 3)/4;
+            //            var sateliteCount = (items.Length - 3)/4;
+
+            var sateliteCount = GetSateliteCount(
+                Convert.ToInt32(NumberOfSatelitesInView),
+                Convert.ToInt32(NumberOfSentences),
+                Convert.ToInt32(SentenceNr));
 
             Satelites = new List<Satelite>();
-            try
+
+            for (int i = 0; i < sateliteCount; i++)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Satelites.Add(
-                        new Satelite
-                        {
-                            SatelitePrnNumber = items[3 + (i * 4) + 0],
-                            ElevationDegrees = items[3 + (i * 4) + 1],
-                            AzimuthDegrees = items[3 + (i * 4) + 2],
-                            SignalStrength = items[3 + (i * 4) + 3],
-                        });
-                }
+                Satelites.Add(
+                    new Satelite
+                    {
+                        SatelitePrnNumber = items[3 + (i * 4) + 0],
+                        ElevationDegrees = items[3 + (i * 4) + 1],
+                        AzimuthDegrees = items[3 + (i * 4) + 2],
+                        SignalStrength = items[3 + (i * 4) + 3],
+                    });
             }
-            catch
+        }
+
+        private int GetSateliteCount(int numberOfSatelitesInView, int numberOfSentences, int sentenceNr)
+        {
+            if (numberOfSentences != sentenceNr)
             {
-                // TODO: better line and number of satelites parsing needed
+                return 4;
+            }
+            else
+            {
+                return numberOfSatelitesInView - ((sentenceNr - 1) * 4);
             }
         }
 

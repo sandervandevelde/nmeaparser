@@ -26,6 +26,11 @@ namespace svelde.nmea.parser
             }
         }
 
+        public bool IsValid()
+        {
+            return Mode != _modeIndicators['N'];
+        }
+
         public string Mode { get; private set; }
 
         public override string ToString()

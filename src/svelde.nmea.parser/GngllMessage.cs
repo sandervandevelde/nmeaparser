@@ -1,4 +1,6 @@
-﻿namespace svelde.nmea.parser
+﻿using Newtonsoft.Json;
+
+namespace svelde.nmea.parser
 {
     /// <summary>
     ////GLL - Geographic position, Latitude and Longitude
@@ -16,10 +18,15 @@
     {
         public override string GetIdentifier() => "$GNGLL";
 
+        [JsonProperty(PropertyName = "latitude")]
         public Location Latitude { get; set;}
+        [JsonProperty(PropertyName = "longitude")]
         public Location Longitude { get; set; }
+        [JsonProperty(PropertyName = "fixTaken")]
         public string FixTaken { get; set; }
+        [JsonProperty(PropertyName = "dataValid")]
         public string DataValid { get; set; }
+        [JsonProperty(PropertyName = "modeIndicator")]
         public ModeIndicator ModeIndicator { get; set; }
 
         public override void Parse(string nmeaLine)

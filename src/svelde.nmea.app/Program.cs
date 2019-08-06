@@ -16,7 +16,7 @@ namespace svelde.nmea.app
 
         private static StreamWriter _streamWriter;
 
-        private static DeviceClient _deviceClient = null; 
+        private static DeviceClient _deviceClient = null;
 
         static void Main(string[] args)
         {
@@ -76,6 +76,12 @@ namespace svelde.nmea.app
                     try
                     {
                         _LastSent = DateTime.Now;
+
+                        if (!(e as GngllMessage).ModeIndicator.IsValid())
+                        {
+                            Console.WriteLine($"*** Invalid fix '{(e as GngllMessage).ModeIndicator}'; no location sent");
+                            return;
+                        }
 
                         var telemetry = new Telemetry
                         {
