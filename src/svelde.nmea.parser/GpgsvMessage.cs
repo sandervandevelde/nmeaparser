@@ -22,6 +22,11 @@ namespace svelde.nmea.parser
     /// </summary>
     public class GpgsvMessage : NmeaMessage
     {
+        public GpgsvMessage()
+        {
+            Satelites = new List<Satelite>();
+        }
+
         public override string GetIdentifier() => "$GPGSV";
         public string NumberOfSentences { get; set; }
         public string SentenceNr { get; set; }
@@ -63,8 +68,6 @@ namespace svelde.nmea.parser
                 Convert.ToInt32(NumberOfSentences),
                 Convert.ToInt32(SentenceNr));
 
-            Satelites = new List<Satelite>();
-
             for (int i = 0; i < sateliteCount; i++)
             {
                 Satelites.Add(
@@ -77,7 +80,12 @@ namespace svelde.nmea.parser
                     });
             }
 
-            OnNmeaMessageParsed(this);
+            if (NumberOfSentences == SentenceNr)
+            {
+                OnNmeaMessageParsed(this);
+
+                Satelites.Clear();
+            }
         }
 
         protected override void OnNmeaMessageParsed(NmeaMessage e)
