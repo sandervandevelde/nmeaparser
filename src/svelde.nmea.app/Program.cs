@@ -62,56 +62,11 @@ namespace svelde.nmea.app
             var @switch = new Dictionary<Type, Action> {
                 { typeof(GnggaMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GpggaMessage), () => { Console.WriteLine($"{e}"); } },
-                { typeof(GngllMessage), () => 
-                {
-                    Console.WriteLine($"{e}");
-
-                    if (_deviceClient == null)
-                    {
-                        return;
-                    }
-
-                    if  (_LastSent >= DateTime.Now.AddSeconds(-10))
-                    {
-                        return;
-                    }
-
-                    try
-                    {
-                        _LastSent = DateTime.Now;
-
-                        if (!(e as GngllMessage).ModeIndicator.IsValid())
-                        {
-                            Console.WriteLine($"*** Invalid fix '{(e as GngllMessage).ModeIndicator}'; no location sent");
-                            return;
-                        }
-
-                        var telemetry = new Telemetry
-                        {
-                            Location = new TelemetryLocation
-                                        {
-                                           Latitude = (e as GngllMessage).Latitude.ToDecimalDegrees(),
-                                           Longitude = (e as GngllMessage).Longitude.ToDecimalDegrees()
-                                        },
-                            FixTaken = (e as GngllMessage).FixTaken,
-                            ModeIndicator = (e as GngllMessage).ModeIndicator,
-                        };
-
-                        var json = Newtonsoft.Json.JsonConvert.SerializeObject(telemetry);
-
-                        var message = new Message(Encoding.ASCII.GetBytes(json));
-
-                        _deviceClient.SendEventAsync(message);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Exception during IoT communication {ex}");
-                    }
-                } },
+                { typeof(GngllMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GngsaMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GpgsaMessage), () => { Console.WriteLine($"{e}"); } },
-                { typeof(GnrmcMessage), () => { Console.WriteLine($"{e}"); } },
-                { typeof(GprmcMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GnrmcMessage), () => { SendMessage(e); } },
+                { typeof(GprmcMessage), () => { SendMessage(e); } },
                 { typeof(GntxtMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GnvtgMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GpvtgMessage), () => { Console.WriteLine($"{e}"); } },
@@ -121,6 +76,53 @@ namespace svelde.nmea.app
             };
 
             @switch[e.GetType()]();
+        }
+
+        private static void SendMessage(NmeaMessage e)
+        {
+            Console.WriteLine($"{e}");
+
+            if (_deviceClient == null)
+            {
+                return;
+            }
+
+            if (_LastSent >= DateTime.Now.AddSeconds(-10))
+            {
+                return;
+            }
+
+            try
+            {
+                _LastSent = DateTime.Now;
+
+                if (!(e as GnrmcMessage).ModeIndicator.IsValid())
+                {
+                    Console.WriteLine($"*** Invalid fix '{(e as GngllMessage).ModeIndicator}'; no location sent");
+                    return;
+                }
+
+                var telemetry = new Telemetry
+                {
+                    Location = new TelemetryLocation
+                    {
+                        Latitude = (e as GnrmcMessage).Latitude.ToDecimalDegrees(),
+                        Longitude = (e as GnrmcMessage).Longitude.ToDecimalDegrees(),
+                    },
+                    FixTaken = (e as GnrmcMessage).TimeOfFix,
+                    ModeIndicator = (e as GnrmcMessage).ModeIndicator,
+                };
+
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(telemetry);
+
+                var message = new Message(Encoding.ASCII.GetBytes(json));
+
+                _deviceClient.SendEventAsync(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception during IoT communication {ex}");
+            }
         }
 
         private static void NmeaSentenceReceived(object sender, NmeaSentence e)
