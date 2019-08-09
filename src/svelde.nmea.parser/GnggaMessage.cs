@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace svelde.nmea.parser
 {
@@ -22,16 +23,35 @@ namespace svelde.nmea.parser
     /// </summary>
     public class GnggaMessage : NmeaMessage
     {
-        public string FixTaken { get; set; }
-        public Location Latitude { get; set; }
-        public Location Longitude { get; set; }
-        public string FixQuality { get; set; }
-        public int NumberOfSatellites { get; set; }
-        public decimal HorizontalPod { get; set; }
-        public string AltitudeMetres { get; set; }
-        public string HeightOfGeoid { get; set; }
-        public string SecondsSinceLastUpdateDGPS { get; set; }
-        public string StationIdNumberDGPS { get; set; }
+        [JsonProperty(PropertyName = "fixTaken")]
+        public string FixTaken { get; private set; }
+
+        [JsonProperty(PropertyName = "latitude")]
+        public Location Latitude { get; private set; }
+
+        [JsonProperty(PropertyName = "longitude")]
+        public Location Longitude { get; private set; }
+
+        [JsonProperty(PropertyName = "fixQuality")]
+        public string FixQuality { get; private set; }
+
+        [JsonProperty(PropertyName = "numberOfSatellites")]
+        public int NumberOfSatellites { get; private set; }
+
+        [JsonProperty(PropertyName = "horizontalPod")]
+        public decimal HorizontalPod { get; private set; }
+
+        [JsonProperty(PropertyName = "altitudeMetres")]
+        public string AltitudeMetres { get; private set; }
+
+        [JsonProperty(PropertyName = "heightOfGeoid")]
+        public string HeightOfGeoid { get; private set; }
+
+        [JsonProperty(PropertyName = "secondsSinceLastUpdateDGPS")]
+        public string SecondsSinceLastUpdateDGPS { get; private set; }
+
+        [JsonProperty(PropertyName = "stationIdNumberDGPS")]
+        public string StationIdNumberDGPS { get; private set; }
 
         public override string GetIdentifier() => "$GNGGA";
 
@@ -95,7 +115,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N2} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
+            var result = $"{GetIdentifier()} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N1} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
 
             return result;
         }

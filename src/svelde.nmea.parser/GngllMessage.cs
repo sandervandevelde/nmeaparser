@@ -19,15 +19,19 @@ namespace svelde.nmea.parser
         public override string GetIdentifier() => "$GNGLL";
 
         [JsonProperty(PropertyName = "latitude")]
-        public Location Latitude { get; set;}
+        public Location Latitude { get; private set; }
+
         [JsonProperty(PropertyName = "longitude")]
-        public Location Longitude { get; set; }
+        public Location Longitude { get; private set; }
+
         [JsonProperty(PropertyName = "fixTaken")]
-        public string FixTaken { get; set; }
+        public string FixTaken { get; private set; }
+
         [JsonProperty(PropertyName = "dataValid")]
-        public string DataValid { get; set; }
+        public string DataValid { get; private set; }
+
         [JsonProperty(PropertyName = "modeIndicator")]
-        public ModeIndicator ModeIndicator { get; set; }
+        public ModeIndicator ModeIndicator { get; private set; }
 
         public override void Parse(string nmeaLine)
         {

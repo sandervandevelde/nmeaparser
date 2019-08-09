@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace svelde.nmea.parser
@@ -28,10 +29,19 @@ namespace svelde.nmea.parser
         }
 
         public override string GetIdentifier() => "$GPGSV";
-        public string NumberOfSentences { get; set; }
-        public string SentenceNr { get; set; }
-        public string NumberOfSatelitesInView { get; set; }
+
+        [JsonProperty(PropertyName = "numberOfSentences")]
+        public int NumberOfSentences { get; private set; }
+
+        [JsonProperty(PropertyName = "sentenceNr")]
+        public int SentenceNr { get; private set; }
+
+        [JsonProperty(PropertyName = "numberOfSatelitesInView")]
+        public int NumberOfSatelitesInView { get; private set; }
+
+        [JsonProperty(PropertyName = "satelites")]
         public List<Satelite> Satelites { get; private set; }
+
         public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
@@ -57,11 +67,9 @@ namespace svelde.nmea.parser
 
             // TODO: check existance of indexbefore inserting
 
-            NumberOfSentences = items[0];
-            SentenceNr = items[1];
-            NumberOfSatelitesInView = items[2];
-
-            //            var sateliteCount = (items.Length - 3)/4;
+            NumberOfSentences = Convert.ToInt32(items[0]);
+            SentenceNr = Convert.ToInt32(items[1]);
+            NumberOfSatelitesInView = Convert.ToInt32(items[2]);
 
             var sateliteCount = GetSateliteCount(
                 Convert.ToInt32(NumberOfSatelitesInView),

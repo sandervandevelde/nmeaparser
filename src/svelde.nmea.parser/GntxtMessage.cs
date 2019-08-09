@@ -1,4 +1,6 @@
-﻿namespace svelde.nmea.parser
+﻿using Newtonsoft.Json;
+
+namespace svelde.nmea.parser
 {
     /// <summary>
     ///$GNTXT,01,01,02,u-blox AG - www.u-blox.com*4E
@@ -18,7 +20,8 @@
     {
         public override string GetIdentifier() => "$GNTXT";
 
-        public string Text { get; set; }
+        [JsonProperty(PropertyName = "text")]
+        public string Text { get; private set; }
 
         public override void Parse(string nmeaLine)
         {

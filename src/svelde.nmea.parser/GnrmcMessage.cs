@@ -1,4 +1,6 @@
-﻿namespace svelde.nmea.parser
+﻿using Newtonsoft.Json;
+
+namespace svelde.nmea.parser
 {
     /// <summary>
     /// RMC - Recommended minimum specific GPS/Transit data
@@ -26,15 +28,32 @@
     {
         public override string GetIdentifier() => "$GNRMC";
 
-        public string TimeOfFix { get; set; }
-        public string NavigationReceiverWarning { get; set; }
-        public Location Latitude { get; set;}
-        public Location Longitude { get; set; }
-        public string SpeedOverGround { get; set; }
-        public string CourseMadeGood { get; set; }
-        public string DateOfFix { get; set; }
-        public string MagneticVariation { get; set; }
-        public ModeIndicator ModeIndicator { get; set; }
+        [JsonProperty(PropertyName = "timeOfFix")]
+        public string TimeOfFix { get; private set; }
+
+        [JsonProperty(PropertyName = "navigationReceiverWarning")]
+        public string NavigationReceiverWarning { get; private set; }
+
+        [JsonProperty(PropertyName = "latitude")]
+        public Location Latitude { get; private set; }
+
+        [JsonProperty(PropertyName = "longitude")]
+        public Location Longitude { get; private set; }
+
+        [JsonProperty(PropertyName = "speedOverGround")]
+        public string SpeedOverGround { get; private set; }
+
+        [JsonProperty(PropertyName = "courseMadeGood")]
+        public string CourseMadeGood { get; private set; }
+
+        [JsonProperty(PropertyName = "dateOfFix")]
+        public string DateOfFix { get; private set; }
+
+        [JsonProperty(PropertyName = "magneticVariation")]
+        public string MagneticVariation { get; private set; }
+
+        [JsonProperty(PropertyName = "modeIndicator")]
+        public ModeIndicator ModeIndicator { get; private set; }
 
         public override void Parse(string nmeaLine)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,13 +37,23 @@ namespace svelde.nmea.parser
 
         public override string GetIdentifier() => "$GNGSA";
 
-        public string AutoSelection{ get; set; }
-        public string Fix3D { get; set; }
-        public string PercentDop { get; set; }
-        public string HorizontalDop { get; set; }
-        public string VerticalDop { get; set; }
+        [JsonProperty(PropertyName = "autoSelection")]
+        public string AutoSelection{ get; private set; }
 
-        public List<int> PrnsOfSatellitesUsedForFix { get; set; }
+        [JsonProperty(PropertyName = "fix3D")]
+        public string Fix3D { get; private set; }
+
+        [JsonProperty(PropertyName = "percentDop")]
+        public decimal PercentDop { get; private set; }
+
+        [JsonProperty(PropertyName = "horizontalDop")]
+        public decimal HorizontalDop { get; private set; }
+
+        [JsonProperty(PropertyName = "verticalDop")]
+        public decimal VerticalDop { get; private set; }
+
+        [JsonProperty(PropertyName = "prnsOfSatellitesUsedForFix")]
+        public List<int> PrnsOfSatellitesUsedForFix { get; private set; }
 
         public override void Parse(string nmeaLine)
         {
@@ -94,9 +105,9 @@ namespace svelde.nmea.parser
             AddPrn(items[12]);
             AddPrn(items[13]);
 
-            PercentDop = items[14];
-            HorizontalDop= items[15];
-            VerticalDop  = items[16];
+            PercentDop = Convert.ToDecimal(items[14]);
+            HorizontalDop= Convert.ToDecimal(items[15]);
+            VerticalDop  = Convert.ToDecimal(items[16]);
         }
 
         public void AddPrn(string prn)
@@ -116,7 +127,7 @@ namespace svelde.nmea.parser
 
             prnsOfSatellitesUsedForFix = prnsOfSatellitesUsedForFix.Trim();
 
-            var result = $"{GetIdentifier()} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{prnsOfSatellitesUsedForFix} PDop:{PercentDop} HDop:{HorizontalDop} VDop:{VerticalDop} ";
+            var result = $"{GetIdentifier()} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{prnsOfSatellitesUsedForFix} PDop:{PercentDop:N1} HDop:{HorizontalDop:N1} VDop:{VerticalDop:N1} ";
 
             return result;
         }

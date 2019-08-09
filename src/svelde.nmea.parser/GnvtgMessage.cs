@@ -1,4 +1,6 @@
-﻿namespace svelde.nmea.parser
+﻿using Newtonsoft.Json;
+
+namespace svelde.nmea.parser
 {
     /// <summary>
     /// $GNVTG,,T,,M,0.050,N,0.092,K,A*33
@@ -12,11 +14,21 @@
     public class GnvtgMessage : NmeaMessage
     {
         public override string GetIdentifier() => "$GNVTG";
-        public string TrueTrackMadeGood { get; set; }
-        public string MagneticTrackMadeGood { get; set; }
-        public string GroundSpeedKnots { get; set; }
-        public string GroundSpeedKilometersPerHour { get; set; }
-        public ModeIndicator ModeIndicator { get; set; }
+
+        [JsonProperty(PropertyName = "trueTrackMadeGood")]
+        public string TrueTrackMadeGood { get; private set; }
+
+        [JsonProperty(PropertyName = "magneticTrackMadeGood")]
+        public string MagneticTrackMadeGood { get; private set; }
+
+        [JsonProperty(PropertyName = "groundSpeedKnots")]
+        public string GroundSpeedKnots { get; private set; }
+
+        [JsonProperty(PropertyName = "groundSpeedKilometersPerHour")]
+        public string GroundSpeedKilometersPerHour { get; private set; }
+
+        [JsonProperty(PropertyName = "nodeIndicator")]
+        public ModeIndicator ModeIndicator { get; private set; }
 
         public override void Parse(string nmeaLine)
         {
