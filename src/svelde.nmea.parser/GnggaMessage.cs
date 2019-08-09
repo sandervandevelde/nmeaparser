@@ -1,4 +1,6 @@
-﻿namespace svelde.nmea.parser
+﻿using System;
+
+namespace svelde.nmea.parser
 {
     /// <summary>
     ///$GNGGA,143718.00,4513.13793,N,01859.19704,E,1,05,1.86,108.1,M,38.1,M,,*40
@@ -24,8 +26,8 @@
         public Location Latitude { get; set; }
         public Location Longitude { get; set; }
         public string FixQuality { get; set; }
-        public string NumberOfSatellites { get; set; }
-        public string HorizontalPod { get; set; }
+        public int NumberOfSatellites { get; set; }
+        public decimal HorizontalPod { get; set; }
         public string AltitudeMetres { get; set; }
         public string HeightOfGeoid { get; set; }
         public string SecondsSinceLastUpdateDGPS { get; set; }
@@ -61,9 +63,23 @@
             FixTaken = items[0];
             Latitude = new Location(items[1] + items[2]);
             Longitude = new Location(items[3] + items[4]);
-            FixQuality = items[5];
-            NumberOfSatellites  = items[6];
-            HorizontalPod  = items[7];
+
+            var fixQuality = "Invalid"; // 0 or other values
+
+            switch(items[5])
+            {
+                case "1":
+                    fixQuality = "GPS fix";
+                    break;
+                case "2":
+                    fixQuality = "DGPS fix";
+                    break;
+            }
+
+            FixQuality = fixQuality;
+
+            NumberOfSatellites  = Convert.ToInt32(items[6]);
+            HorizontalPod  = Convert.ToDecimal(items[7]);
             AltitudeMetres = items[8] + items[9];
             HeightOfGeoid = items[10] + items[11];
             SecondsSinceLastUpdateDGPS = items[12];
@@ -79,7 +95,7 @@
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod} Altitude:{AltitudeMetres}mtr Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
+            var result = $"{GetIdentifier()} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N2} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
 
             return result;
         }
