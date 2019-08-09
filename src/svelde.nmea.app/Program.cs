@@ -8,7 +8,7 @@ using System.Text;
 
 namespace svelde.nmea.app
 {
-    class Program
+    class Program : IDisposable
     {
         private static DateTime _LastSent;
 
@@ -17,6 +17,8 @@ namespace svelde.nmea.app
         private static StreamWriter _streamWriter;
 
         private static DeviceClient _deviceClient = null;
+
+        private static SerialReader _SerialReader = null;
 
         static void Main(string[] args)
         {
@@ -44,11 +46,11 @@ namespace svelde.nmea.app
 
             _parser.NmeaMessageParsed += NmeaMessageParsed;
 
-            var s = new SerialReader();
+            _SerialReader = new SerialReader();
 
-            s.NmeaSentenceReceived += NmeaSentenceReceived;
+            _SerialReader.NmeaSentenceReceived += NmeaSentenceReceived;
 
-            s.Open();
+            _SerialReader.Open();
 
             Console.WriteLine("Initialized...");
 
@@ -59,6 +61,7 @@ namespace svelde.nmea.app
         {
             var @switch = new Dictionary<Type, Action> {
                 { typeof(GnggaMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GpggaMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GngllMessage), () => 
                 {
                     Console.WriteLine($"{e}");
@@ -106,9 +109,12 @@ namespace svelde.nmea.app
                     }
                 } },
                 { typeof(GngsaMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GpgsaMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GnrmcMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GprmcMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GntxtMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GnvtgMessage), () => { Console.WriteLine($"{e}"); } },
+                { typeof(GpvtgMessage), () => { Console.WriteLine($"{e}"); } },
                 { typeof(GpgsvMessage), () => { Console.WriteLine($"{e}(GPS)"); } },
                 { typeof(GlgsvMessage), () => { Console.WriteLine($"{e}(Glosnass)"); } },
                 { typeof(GbgsvMessage), () => { Console.WriteLine($"{e}(Baidoo)"); } },
@@ -122,6 +128,12 @@ namespace svelde.nmea.app
             _streamWriter.WriteLine(e.Sentence);
 
             _parser.Parse(e.Sentence);
+        }
+
+        public void Dispose()
+        {
+            if (_SerialReader != null)
+                _SerialReader.Dispose();
         }
     }
 

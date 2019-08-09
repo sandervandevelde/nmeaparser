@@ -8,7 +8,7 @@ namespace svelde.nmea.app
     /// <summary>
     /// Read Nmea sentence from a serial conntection.
     /// </summary>
-    public class SerialReader
+    public class SerialReader : IDisposable
     {
         private Timer _timer;
 
@@ -63,7 +63,7 @@ namespace svelde.nmea.app
             }
         }
 
-        public string PortName { get; set; } = "COM7";
+        public string PortName { get; set; } = "COM8";
         public int BaudRate { get; set; } = 115200;
         public Parity Parity { get; set; } = Parity.None;
         public int DataBits { get; set; } = 8;
@@ -224,6 +224,21 @@ namespace svelde.nmea.app
 
                     NmeaSentenceReceived(this, sentence);
                 }
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_port != null)
+            {
+                if (_port.IsOpen)
+                {
+                    _port.Close();
+                }
+
+                _port.Dispose();
+
+                _port = null;
             }
         }
 

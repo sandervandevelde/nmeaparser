@@ -13,16 +13,18 @@ namespace svelde.nmea.parser
             _modeIndicators.Add('D', "Differential");
             _modeIndicators.Add('E', "Estimated(dead reckoning) mode");
             _modeIndicators.Add('M', "Manual input");
-            _modeIndicators.Add('N', "Data not valid");
+            _modeIndicators.Add('N', "Data not valid"); 
+            _modeIndicators.Add('*', "Not implemented");
 
-            if(!string.IsNullOrEmpty(modeIndicator) 
+
+            if (!string.IsNullOrEmpty(modeIndicator) 
                 && _modeIndicators.ContainsKey(modeIndicator[0]))
             {
                 Mode = _modeIndicators[modeIndicator[0]];
             }
             else
             {
-                Mode = _modeIndicators['N'];
+                Mode = _modeIndicators['*'];
             }
         }
 
