@@ -29,7 +29,8 @@ namespace svelde.nmea.app
 
             Console.WriteLine($"Ports available: {portNamesText}");
 
-            _timer = new Timer(DetectDisconnectedSerialPort, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            // Time is set to 15 to prevent this check from blocking the port while connecting
+            _timer = new Timer(DetectDisconnectedSerialPort, null, TimeSpan.Zero, TimeSpan.FromSeconds(15));
         }
 
         public SerialReader(string portName) 
@@ -55,6 +56,7 @@ namespace svelde.nmea.app
         /// <param name="state"></param>
         private void DetectDisconnectedSerialPort(object state)
         {
+            Console.WriteLine($"Comport {PortName} disconnect check");
             if (_port != null
                     && !_port.IsOpen)
             {
@@ -155,11 +157,15 @@ namespace svelde.nmea.app
                     catch (Exception ex)
                     {
                         Console.WriteLine($"Exception when Opening: {ex.Message}");
+
+                        connected = false;
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Exception when Resetting: {ex.Message}");
+
+                    connected = false;
                 }
             }
         }

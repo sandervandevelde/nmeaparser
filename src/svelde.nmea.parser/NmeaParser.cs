@@ -79,15 +79,22 @@ namespace svelde.nmea.parser
         public void Parse(string nmeaLine)
         {
 
-            if (_parsers.ContainsKey(nmeaLine.Substring(0, 6)))
+            try
             {
-                var p = _parsers.First(x => x.Key == nmeaLine.Substring(0, 6)).Value;
+                if (_parsers.ContainsKey(nmeaLine.Substring(0, 6)))
+                {
+                    var p = _parsers.First(x => x.Key == nmeaLine.Substring(0, 6)).Value;
 
-                p.Parse(nmeaLine);
+                    p.Parse(nmeaLine);
+                }
+                else
+                {
+                    Console.WriteLine($"No parser found for {nmeaLine.Substring(0, 6)}");
+                }
             }
-            else
+            catch (NmeaParseChecksumException)
             {
-                Console.WriteLine($"No parser found for {nmeaLine.Substring(0, 6)}");
+                Console.WriteLine($"PARSE EXCEPTION FOR '{nmeaLine}'");
             }
         }
 
