@@ -18,13 +18,13 @@ namespace svelde.nmea.app
 
         public SerialReader()
         {
-            var portNames = SerialPort.GetPortNames();
+            var portNames = SerialPort.GetPortNames().OrderBy(x=>x);
 
             var portNamesText = string.Empty;
 
             foreach (var portName in portNames)
             {
-                portNamesText += $"{PortName} ";
+                portNamesText += $"{portName} ";
             }
 
             Console.WriteLine($"Ports available: {portNamesText}");
@@ -56,7 +56,7 @@ namespace svelde.nmea.app
         /// <param name="state"></param>
         private void DetectDisconnectedSerialPort(object state)
         {
-            Console.WriteLine($"Comport {PortName} disconnect check");
+            //Console.WriteLine($"Comport {PortName} disconnect check");
             if (_port != null
                     && !_port.IsOpen)
             {
@@ -65,7 +65,7 @@ namespace svelde.nmea.app
             }
         }
 
-        public string PortName { get; set; } = "COM8";
+        public string PortName { get; set; } = "COM5";
         public int BaudRate { get; set; } = 115200;
         public Parity Parity { get; set; } = Parity.None;
         public int DataBits { get; set; } = 8;
