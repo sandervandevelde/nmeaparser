@@ -36,6 +36,18 @@ The location degrees are calculated as decimal degrees.
 
         (d)dd + (mm.mmmm/60) (* -1 for W and S)
 
-## System.IO.Ports
+## Serial Reader
+
+For testing purposes, a reader for serial ports is added in the test application. If uses .Net Standard System IO access to serial ports.
+
+### System.IO.Ports
 
 The example app only supports Windows due to the usage of the System.IO.Ports library. 
+
+
+
+## NuGet
+
+You can use this library as a Nuget Package:
+
+    Install-Package svelde-nmea-parser -Version 1.0.0
