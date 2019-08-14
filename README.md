@@ -55,7 +55,7 @@ You can use this library as a Nuget Package:
 The following devices are used to test the parser:
 
 * BEITIAN USB GNSS GPS Receiver BN-85U (U-Blox UBX-M8030)
-* GRB-288 Bluetooth GPS mouse
+* Webio GRB-288 Bluetooth GPS mouse 
 * GSpace GS-R238 GPS mouse (SiRFstarIII)
 
 *Note: If you want to have your GPS device tested and officially supported here, please send me a DM in twitter @svelde*
