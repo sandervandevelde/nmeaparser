@@ -4,8 +4,6 @@ namespace svelde.nmea.parser
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Unity;
-    using Unity.Injection;
 
     public class NmeaParser
     {
@@ -78,7 +76,6 @@ namespace svelde.nmea.parser
 
         public void Parse(string nmeaLine)
         {
-
             try
             {
                 if (_parsers.ContainsKey(nmeaLine.Substring(0, 6)))

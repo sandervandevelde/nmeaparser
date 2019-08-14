@@ -4,7 +4,6 @@ namespace svelde.nmea.parser
 {
     public class NmeaParseUnknownException : Exception
     {
-
     }
 }
 

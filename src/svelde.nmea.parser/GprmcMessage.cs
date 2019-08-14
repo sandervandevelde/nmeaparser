@@ -1,6 +1,6 @@
 ﻿namespace svelde.nmea.parser
 {
-    public class GprmcMessage : GnrmcMessage
+    public class GprmcMessage : RmcMessage
     {
         public override string GetIdentifier()
         {

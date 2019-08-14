@@ -5,37 +5,12 @@ using System.Linq;
 
 namespace svelde.nmea.parser
 {
-    /// <summary>
-    ///$GNGSA,A,3,01,18,32,08,11,,,,,,,,6.16,1.86,5.88*16
-    ///$GNGSA,A,3,,,,,,,,,,,,,6.16,1.86,5.88*17
-    ///        GSA - GPS DOP and active satellites
-    ///        GSA, A,3,04,05,,09,12,,,24,,,,,2.5,1.3,2.1*39
-    ///           A Auto selection of 2D or 3D fix(M = manual)
-    ///           3            3D fix
-    ///           04,05...     PRNs of satellites used for fix(space for 12)
-    ///           2.5          PDOP(Percent dilution of precision)
-    ///           1.3          Horizontal dilution of precision(HDOP)
-    ///           2.1          Vertical dilution of precision(VDOP)
-    ///             DOP is an indication of the effect of satellite geometry on
-    ///             the accuracy of the fix.
-    ///             
-    /// http://continuouswave.com/ubb/Forum6/HTML/003694.html
-    /// NMEA ID 1 to 32: GPS
-    /// NMEA ID 33 to 64: WAAS
-    /// NMEA ID 65 to 96: GLONASS
-    /// Combines multiple Satelite ranges (from GPS, Glosnass, etc.) into one sentence 
-    /// If a new sentence of GPS arrives, dismiss old one and start collecting again
-    /// </summary>
     public abstract class GsaMessage : NmeaMessage
     {
         public GsaMessage()
         {
             PrnsOfSatellitesUsedForFix = new List<int>();
         }
-
-        // TODO: Make the (gps) range variable as parameter
-
-        //public override string GetIdentifier() => "$GNGSA";
 
         [JsonProperty(PropertyName = "autoSelection")]
         public string AutoSelection{ get; private set; }
@@ -86,8 +61,6 @@ namespace svelde.nmea.parser
             sentence = sentence.Remove(sentence.IndexOf('*'));
 
             var items = sentence.Split(',');
-
-            // TODO: check existance of indexbefore inserting
 
             AutoSelection = items[0];
             Fix3D = items[1];

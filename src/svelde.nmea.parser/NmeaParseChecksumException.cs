@@ -4,9 +4,6 @@ namespace svelde.nmea.parser
 {
     public class NmeaParseChecksumException : Exception
     {
-
     }
-
-
 }
 

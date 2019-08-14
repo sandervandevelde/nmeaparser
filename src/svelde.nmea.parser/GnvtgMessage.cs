@@ -2,15 +2,6 @@
 
 namespace svelde.nmea.parser
 {
-    /// <summary>
-    /// $GNVTG,,T,,M,0.050,N,0.092,K,A*33
-    ///        VTG - Track made good and ground speed
-    ///        VTG,054.7,T,034.4,M,005.5,N,010.2,K
-    ///           054.7,T True track made good
-    ///           034.4,M Magnetic track made good
-    ///           005.5,N Ground speed, knots
-    ///           010.2,K Ground speed, Kilometers per hour
-    /// </summary>
     public class GnvtgMessage : NmeaMessage
     {
         public override string GetIdentifier() => "$GNVTG";
@@ -52,8 +43,6 @@ namespace svelde.nmea.parser
             sentence = sentence.Remove(sentence.IndexOf('*'));
 
             var items = sentence.Split(',');
-
-            // TODO: check existance of indexbefore inserting
 
             TrueTrackMadeGood = items[0] + items[1];
             MagneticTrackMadeGood = items[2] + items[3];
