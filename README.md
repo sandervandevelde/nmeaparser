@@ -30,6 +30,12 @@ The event is used because some NMEA messages are splitted up in multiple sentenc
 
 For these messages, the result is buffered. Once the complete message is made available, the event is raised.
 
+## Degrees
+
+The location degrees are calculated as decimal degrees. 
+
+        (d)dd + (mm.mmmm/60) (* -1 for W and S)
+
 ## System.IO.Ports
 
 The example app only supports Windows due to the usage of the System.IO.Ports library. 
