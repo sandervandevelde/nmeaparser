@@ -1,6 +1,6 @@
 ﻿namespace svelde.nmea.parser
 {
-    public class GpgsaMessage : GngsaMessage
+    public class GpgsaMessage : GsaMessage
     {
         public override string GetIdentifier()
         {
