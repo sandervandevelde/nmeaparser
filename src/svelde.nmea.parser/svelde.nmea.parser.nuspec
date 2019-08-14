@@ -7,13 +7,18 @@
     <authors>svelde</authors>
     <owners>svelde</owners>
     <license type="expression">MIT</license>
+    <repository type="git" url="https://github.com/sandervandevelde/nmeaparser" />
     <projectUrl>https://github.com/sandervandevelde/nmeaparser</projectUrl>
-    <iconUrl>https://github.com/sandervandevelde/nmeaparser/blob/master/media/nmeaparser.ico</iconUrl>
+    <iconUrl>https://github.com/sandervandevelde/nmeaparser/blob/master/media/nmeaparser.ico?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Parser for NMEA messages. Currently parses GSV, GGA, GSA, GLL, GMC, VTG and TXT</description>
     <releaseNotes>Initial version.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>GPS NMEA NMEA-Parser</tags>
+    <summary>This is a parser for NMEA messages. Currently it parses GSV, GGA, GSA, GLL, GMC, VTG and TXT. After parsing, it throws an event with the NMEA message. It combines multiple GSV and GSA messages into one message event.</summary>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="12.0" />
+    </dependencies>
   </metadata>
   <files>
     <file src="bin\Release\netcoreapp2.2\svelde.nmea.parser.dll" target="lib\netcore\2.2\svelde.nmea.parser.dll" />
