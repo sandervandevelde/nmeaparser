@@ -22,11 +22,11 @@ namespace svelde.nmea.unittest
 
             // ASSERT
 
-            Assert.AreEqual(n.TrueTrackMadeGood, "T");
-            Assert.AreEqual(n.MagneticTrackMadeGood, "M");
-            Assert.AreEqual(n.GroundSpeedKnots, "0.050N");
-            Assert.AreEqual(n.GroundSpeedKilometersPerHour, "0.092K");
-            Assert.AreEqual(n.ModeIndicator, "A");
+            Assert.AreEqual("T", n.TrueTrackMadeGood);
+            Assert.AreEqual("M", n.MagneticTrackMadeGood);
+            Assert.AreEqual("0.050N", n.GroundSpeedKnots);
+            Assert.AreEqual("0.092K", n.GroundSpeedKilometersPerHour);
+            Assert.AreEqual("Autonomous", n.ModeIndicator.Mode);
         }
     }
 

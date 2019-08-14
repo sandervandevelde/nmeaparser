@@ -81,7 +81,20 @@ namespace svelde.nmea.parser
             // TODO: check existance of indexbefore inserting
 
             TimeOfFix = items[0];
-            NavigationReceiverWarning = items[1];
+
+            //A = OK, V = warning
+            switch (items[1])
+            {
+                case "A":
+                    NavigationReceiverWarning = "OK";
+                    break;
+
+                case "V":
+                    NavigationReceiverWarning = "Warning";
+                    break;
+            }
+
+
             Latitude = new Location (items[2]+ items[3]);
             Longitude = new Location(items[4]+ items[5]);
             SpeedOverGround = items[6];

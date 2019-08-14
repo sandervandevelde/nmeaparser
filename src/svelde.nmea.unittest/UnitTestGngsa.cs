@@ -22,12 +22,12 @@ namespace svelde.nmea.unittest
 
             // ASSERT
 
-            Assert.AreEqual(n.AutoSelection, "A");
-            Assert.AreEqual(n.Fix3D, "3");
-            Assert.AreEqual(n.PrnsOfSatellitesUsedForFix, "01,18,32,08,11,,,,,,,");
-            Assert.AreEqual(n.PercentDop, "6.16");
-            Assert.AreEqual(n.HorizontalDop, "1.86");
-            Assert.AreEqual(n.VerticalDop, "5.88");
+            Assert.AreEqual("A", n.AutoSelection);
+            Assert.AreEqual("3", n.Fix3D);
+            Assert.AreEqual(5, n.PrnsOfSatellitesUsedForFix.Count); //"01,18,32,08,11,,,,,,,");
+            Assert.AreEqual(6.16m, n.PercentDop);
+            Assert.AreEqual(1.86m, n.HorizontalDop);
+            Assert.AreEqual(5.88m, n.VerticalDop);
         }
     }
 

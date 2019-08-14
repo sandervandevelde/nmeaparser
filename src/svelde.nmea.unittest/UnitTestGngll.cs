@@ -22,11 +22,11 @@ namespace svelde.nmea.unittest
 
             // ASSERT
 
-            Assert.AreEqual(n.Latitude, "4513.13795N");
-            Assert.AreEqual(n.Longitude, "01859.19702E");
-            Assert.AreEqual(n.FixTaken, "143717.00");
-            Assert.AreEqual(n.DataValid, "A");
-            Assert.AreEqual(n.ModeIndicator, "A");
+            Assert.AreEqual("45.21896583", n.Latitude.ToString());
+            Assert.AreEqual("18.98661700", n.Longitude.ToString());
+            Assert.AreEqual("143717.00", n.FixTaken);
+            Assert.AreEqual("A", n.DataValid);
+            Assert.AreEqual("Autonomous", n.ModeIndicator.Mode);
         }
     }
 }

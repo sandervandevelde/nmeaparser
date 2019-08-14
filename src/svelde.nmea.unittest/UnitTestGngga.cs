@@ -21,16 +21,16 @@ namespace svelde.nmea.unittest
 
             // ASSERT
 
-            Assert.AreEqual(n.FixTaken, "143718.00");
-            Assert.AreEqual(n.Latitude, "4513.13793N");
-            Assert.AreEqual(n.Longitude, "01859.19704E");
-            Assert.AreEqual(n.FixQuality, "1");
-            Assert.AreEqual(n.NumberOfSatellites, "05");
-            Assert.AreEqual(n.HorizontalPod, "1.86");
-            Assert.AreEqual(n.AltitudeMetres, "108.1M");
-            Assert.AreEqual(n.HeightOfGeoid, "38.1M");
-            Assert.AreEqual(n.SecondsSinceLastUpdateDGPS, "");
-            Assert.AreEqual(n.StationIdNumberDGPS, "");
+            Assert.AreEqual("143718.00", n.FixTaken);
+            Assert.AreEqual("45.21896550", n.Latitude.ToString());
+            Assert.AreEqual("18.98661733", n.Longitude.ToString());
+            Assert.AreEqual("GPS fix", n.FixQuality);
+            Assert.AreEqual(5, n.NumberOfSatellites);
+            Assert.AreEqual(1.86m, n.HorizontalPod);
+            Assert.AreEqual("108.1M", n.AltitudeMetres);
+            Assert.AreEqual("38.1M", n.HeightOfGeoid);
+            Assert.AreEqual(string.Empty, n.SecondsSinceLastUpdateDGPS);
+            Assert.AreEqual(string.Empty, n.StationIdNumberDGPS);
         }
     }
 

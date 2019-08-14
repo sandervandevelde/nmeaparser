@@ -94,13 +94,14 @@ namespace svelde.nmea.app
 
             try
             {
-                _LastSent = DateTime.Now;
-
-                if (!(e as GnrmcMessage).ModeIndicator.IsValid())
+                if (!(e is GnrmcMessage) 
+                       || !(e as GnrmcMessage).ModeIndicator.IsValid())
                 {
                     Console.WriteLine($"*** Invalid fix '{(e as GngllMessage).ModeIndicator}'; no location sent");
                     return;
                 }
+
+                _LastSent = DateTime.Now;
 
                 var telemetry = new Telemetry
                 {

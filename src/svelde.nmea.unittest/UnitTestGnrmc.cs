@@ -21,15 +21,15 @@ namespace svelde.nmea.unittest
 
             // ASSERT
 
-            Assert.AreEqual(n.TimeOfFix, "143718.00");
-            Assert.AreEqual(n.NavigationReceiverWarning, "A");
-            Assert.AreEqual(n.Latitude, "4513.13793N");
-            Assert.AreEqual(n.Longitude, "01859.19704E");
-            Assert.AreEqual(n.SpeedOverGround, "0.050");
-            Assert.AreEqual(n.CourseMadeGood, "");
-            Assert.AreEqual(n.DateOfFix, "290719");
-            Assert.AreEqual(n.MagneticVariation, "");
-            Assert.AreEqual(n.ModeIndicator, "A");
+            Assert.AreEqual("143718.00", n.TimeOfFix);
+            Assert.AreEqual("OK", n.NavigationReceiverWarning);
+            Assert.AreEqual("45.21896550", n.Latitude.ToString());
+            Assert.AreEqual("18.98661733", n.Longitude.ToString());
+            Assert.AreEqual("0.050", n.SpeedOverGround);
+            Assert.AreEqual(string.Empty, n.CourseMadeGood);
+            Assert.AreEqual("290719", n.DateOfFix);
+            Assert.AreEqual(string.Empty, n.MagneticVariation);
+            Assert.AreEqual("Autonomous", n.ModeIndicator.Mode);
         }
     }
 }
