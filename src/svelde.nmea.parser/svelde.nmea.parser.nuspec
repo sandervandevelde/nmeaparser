@@ -1,18 +1,21 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <id>svelde-nmea-parser</id>
+    <version>1.0.0</version>
+    <title>Svelde.NmeaParser</title>
+    <authors>svelde</authors>
+    <owners>svelde</owners>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/sandervandevelde/nmeaparser</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <iconUrl>https://github.com/sandervandevelde/nmeaparser/blob/master/media/nmeaparser.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Parser for NMEA messages. Currently parses GSV, GGA, GSA, GLL, GMC, VTG and TXT</description>
+    <releaseNotes>Initial version.</releaseNotes>
     <copyright>Copyright 2019</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>GPS NMEA NMEA-Parser</tags>
   </metadata>
+  <files>
+    <file src="bin\Release\netcoreapp2.2\svelde.nmea.parser.dll" target="lib\netcore\2.2\svelde.nmea.parser.dll" />
+  </files>
 </package>

@@ -78,6 +78,11 @@ namespace svelde.nmea.parser
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(nmeaLine))
+                {
+                    throw new NmeaParseUnknownException();
+                }
+
                 if (_parsers.ContainsKey(nmeaLine.Substring(0, 6)))
                 {
                     var p = _parsers.First(x => x.Key == nmeaLine.Substring(0, 6)).Value;

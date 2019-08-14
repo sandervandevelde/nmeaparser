@@ -6,6 +6,5 @@
         public string ElevationDegrees { get; set; }
         public string AzimuthDegrees { get; set; }
         public string SignalStrength { get; set; }
-
     }
 }
