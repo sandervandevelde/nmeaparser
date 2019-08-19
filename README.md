@@ -6,13 +6,15 @@ Parser for NMEA messages. Currently parses GSV, GGA, GSA, GLL, GMC, VTG and TXT
 
 The parser parses message like '$GNGLL,4513.13795,N,01859.19702,E,143717.00,A,A*72'
 
+        ...
         _parser = new NmeaParser();
 
         _parser.NmeaMessageParsed += NmeaMessageParsed;
 
         _parser.Parse(sentence);
+        ...
 
-        private static void SendMessage(NmeaMessage e)
+        private static void NmeaMessageParsed(NmeaMessage e)
         {
             Console.WriteLine($"{e}");
             
