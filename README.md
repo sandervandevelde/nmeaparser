@@ -48,7 +48,7 @@ The example app only supports Windows due to the usage of the System.IO.Ports li
 
 ## NuGet
 
-You can use this library as a Nuget Package:
+You can use this library as a [Nuget](https://www.nuget.org/packages/svelde-nmea-parser) Package:
 
     Install-Package svelde-nmea-parser -Version 1.0.0
 
