@@ -14,7 +14,7 @@ The parser parses message like '$GNGLL,4513.13795,N,01859.19702,E,143717.00,A,A*
         _parser.Parse(sentence);
         ...
 
-        private static void NmeaMessageParsed(NmeaMessage e)
+        private static void NmeaMessageParsed(object sender, NmeaMessage e)
         {
             Console.WriteLine($"{e}");
             
