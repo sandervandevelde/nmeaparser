@@ -26,7 +26,7 @@ namespace svelde.nmea.parser
         public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
-                    || !nmeaLine.StartsWith(GetIdentifier()))
+                    || !nmeaLine.StartsWith($"${Type}"))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -39,7 +39,7 @@ namespace svelde.nmea.parser
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, GetIdentifier().Length + 1);
+            var sentence = nmeaLine.Remove(0, $"${Type}".Length + 1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
@@ -94,7 +94,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} InView:{NumberOfSatelitesInView} ";
+            var result = $"{Type}-{Port} InView:{NumberOfSatelitesInView} ";
 
             foreach(var s in Satelites)
             {

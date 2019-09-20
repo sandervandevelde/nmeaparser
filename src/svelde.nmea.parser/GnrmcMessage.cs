@@ -1,10 +1,12 @@
-﻿namespace svelde.nmea.parser
+﻿using System;
+
+namespace svelde.nmea.parser
 {
     public class GnrmcMessage : RmcMessage
     {
-        public override string GetIdentifier()
+        public GnrmcMessage()
         {
-            return "$GNRMC";
+            Type = "GNRMC";
         }
 
         public override void Parse(string nmeaLine)

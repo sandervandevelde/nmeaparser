@@ -42,7 +42,7 @@ namespace svelde.nmea.parser
             }
 
             if (string.IsNullOrWhiteSpace(nmeaLine) 
-                    || !nmeaLine.StartsWith(GetIdentifier()))
+                    || !nmeaLine.StartsWith($"${Type}"))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -55,7 +55,7 @@ namespace svelde.nmea.parser
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, GetIdentifier().Length+1);
+            var sentence = nmeaLine.Remove(0, $"${Type}".Length+1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
@@ -100,7 +100,7 @@ namespace svelde.nmea.parser
 
             prnsOfSatellitesUsedForFix = prnsOfSatellitesUsedForFix.Trim();
 
-            var result = $"{GetIdentifier()} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{prnsOfSatellitesUsedForFix} PDop:{PercentDop:N1} HDop:{HorizontalDop:N1} VDop:{VerticalDop:N1} ";
+            var result = $"{Type}-{Port} AutoSelection:{AutoSelection} Fix3D:{Fix3D} Prns:{prnsOfSatellitesUsedForFix} PDop:{PercentDop:N1} HDop:{HorizontalDop:N1} VDop:{VerticalDop:N1} ";
 
             return result;
         }

@@ -5,9 +5,9 @@ namespace svelde.nmea.unittest
 {
     public class TestMessage : NmeaMessage
     {
-        public override string GetIdentifier()
+        public TestMessage()
         {
-            return "test";
+            Type = "Test";
         }
 
         public override void Parse(string nmeaLine)

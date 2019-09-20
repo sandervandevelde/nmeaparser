@@ -7,6 +7,11 @@ namespace svelde.nmea.parser
     /// </summary>
     public abstract class NmeaMessage
     {
+        public string Type {get; set;}
+        public string Port { get; set; }
+
+        public DateTime TimestampUtc { get; set; }
+
         public string MandatoryChecksum { get; set; }
 
         /// <summary>
@@ -48,8 +53,6 @@ namespace svelde.nmea.parser
 
             return sentence.Substring(index+1);
         }
-
-        public abstract string GetIdentifier();
 
         public abstract void Parse(string nmeaLine);
 

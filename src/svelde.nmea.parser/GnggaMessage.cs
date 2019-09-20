@@ -5,6 +5,11 @@ namespace svelde.nmea.parser
 {
     public class GnggaMessage : NmeaMessage
     {
+        public GnggaMessage()
+        {
+            Type = "GNGGA";
+        }
+
         [JsonProperty(PropertyName = "fixTaken")]
         public string FixTaken { get; private set; }
 
@@ -35,12 +40,10 @@ namespace svelde.nmea.parser
         [JsonProperty(PropertyName = "stationIdNumberDGPS")]
         public string StationIdNumberDGPS { get; private set; }
 
-        public override string GetIdentifier() => "$GNGGA";
-
         public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine) 
-                    || !nmeaLine.StartsWith(GetIdentifier()))
+                    || !nmeaLine.StartsWith($"${Type}"))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -53,7 +56,7 @@ namespace svelde.nmea.parser
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, GetIdentifier().Length+1);
+            var sentence = nmeaLine.Remove(0, $"${Type}".Length+1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
@@ -95,7 +98,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N1} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
+            var result = $"{Type}-{Port} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N1} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
 
             return result;
         }

@@ -1,10 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace svelde.nmea.parser
 {
     public class GnvtgMessage : NmeaMessage
     {
-        public override string GetIdentifier() => "$GNVTG";
+        public GnvtgMessage()
+        {
+            Type = "GNVTG";
+        }
 
         [JsonProperty(PropertyName = "trueTrackMadeGood")]
         public string TrueTrackMadeGood { get; private set; }
@@ -24,7 +28,7 @@ namespace svelde.nmea.parser
         public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine)
-                    || !nmeaLine.StartsWith(GetIdentifier()))
+                    || !nmeaLine.StartsWith($"${Type}"))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -37,7 +41,7 @@ namespace svelde.nmea.parser
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, GetIdentifier().Length + 1);
+            var sentence = nmeaLine.Remove(0, $"${Type}".Length + 1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
@@ -63,7 +67,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} Truetrack:{TrueTrackMadeGood} MagneticTrack:{MagneticTrackMadeGood} Speed:{GroundSpeedKnots}/{GroundSpeedKilometersPerHour} Mode:{ModeIndicator}";
+            var result = $"{Type}-{Port} Truetrack:{TrueTrackMadeGood} MagneticTrack:{MagneticTrackMadeGood} Speed:{GroundSpeedKnots}/{GroundSpeedKilometersPerHour} Mode:{ModeIndicator}";
 
             return result;
         }

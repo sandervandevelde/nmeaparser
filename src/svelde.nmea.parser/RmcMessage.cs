@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace svelde.nmea.parser
 {
@@ -34,7 +35,7 @@ namespace svelde.nmea.parser
         public override void Parse(string nmeaLine)
         {
             if (string.IsNullOrWhiteSpace(nmeaLine) 
-                    || !nmeaLine.StartsWith(GetIdentifier()))
+                    || !nmeaLine.StartsWith($"${Type}"))
             {
                 throw new NmeaParseMismatchException();
             }
@@ -47,7 +48,7 @@ namespace svelde.nmea.parser
             }
 
             // remove identifier plus first comma
-            var sentence = nmeaLine.Remove(0, GetIdentifier().Length+1);
+            var sentence = nmeaLine.Remove(0, $"${Type}".Length+1);
 
             // remove checksum and star
             sentence = sentence.Remove(sentence.IndexOf('*'));
@@ -90,7 +91,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{GetIdentifier()} Time:{TimeOfFix} Warning:{NavigationReceiverWarning} Latitude:{Latitude} Longitude:{Longitude} Speed:{SpeedOverGround} Course:{CourseMadeGood} Date:{DateOfFix} Variation:{MagneticVariation} Mode:{ModeIndicator} ";
+            var result = $"{Type}-{Port} Time:{TimeOfFix} Warning:{NavigationReceiverWarning} Latitude:{Latitude} Longitude:{Longitude} Speed:{SpeedOverGround} Course:{CourseMadeGood} Date:{DateOfFix} Variation:{MagneticVariation} Mode:{ModeIndicator} ";
 
             return result;
         }

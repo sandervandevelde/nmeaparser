@@ -1,12 +1,14 @@
-﻿namespace svelde.nmea.parser
+﻿using System;
+
+namespace svelde.nmea.parser
 {
     public class GbgsvMessage : GsvMessage
     {
-        public override string GetIdentifier()
+        public GbgsvMessage()
         {
-            return "$GBGSV";
+            Type = "GBGSV";
         }
-
+        
         public override void Parse(string nmeaLine)
         {
             base.Parse(nmeaLine);

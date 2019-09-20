@@ -1,12 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace svelde.nmea.parser
 {
     public class GngsaMessage : GsaMessage
     {
-        public override string GetIdentifier()
+        public GngsaMessage()
         {
-            return "$GNGSA";
+            Type = "GNGSA";
         }
 
         public override void Parse(string nmeaLine)
