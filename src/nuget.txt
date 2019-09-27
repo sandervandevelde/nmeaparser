@@ -1,3 +1,22 @@
 Generating Nuget
 ================
 
+Compile your project
+
+download nuget.exe from https://www.nuget.org/downloads
+
+Place it in folder 'c:\ProgramData\nuget'
+
+add 'c:\ProgramData\nuget' to the Environment Variable 'Path' (found in user vaiables)
+
+open a prompt in nmeaparser\src\svelde.nmea.parser
+
+Run 'nuget pack svelde.nmea.parser.nuspec'
+
+A file named 'svelde-nmea-parser.1.0.1.nupkg' is created
+
+Login in nuget.org with your Microsoft account
+
+Upload your module to the Nuget portal
+
+Do not forget to add some comments.
