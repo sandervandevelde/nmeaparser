@@ -61,3 +61,9 @@ The following devices are used to test the parser:
 * GSpace GS-R238 GPS mouse (SiRFstarIII)
 
 *Note: If you want to have your GPS device tested and officially supported here, please send me a DM in twitter @svelde*
+
+## Azure IoT Edge
+
+This code is used in the Azure IoT Edge module [iot-edge-nmea](https://github.com/sandervandevelde/iot-edge-nmea).
+
+You can check it out on [Docker Hub](https://cloud.docker.com/repository/docker/svelde/iot-edge-nmea).
