@@ -67,3 +67,11 @@ The following devices are used to test the parser:
 This code is used in the Azure IoT Edge module [iot-edge-nmea](https://github.com/sandervandevelde/iot-edge-nmea).
 
 You can check it out on [Docker Hub](https://cloud.docker.com/repository/docker/svelde/iot-edge-nmea).
+
+## Contribute
+
+The code of this logic is [open source](https://github.com/sandervandevelde/nmeaparser) and licenced under the MIT license.
+
+Want to contribute? Throw me a pull request....
+
+Want to know more about me? Check out [my blog](https://blog.vandevelde-online.com).
