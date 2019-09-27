@@ -98,7 +98,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{Type}-{Port} Fix:{FixTaken} Latitude:{Latitude} Longitude:{Longitude} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N1} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
+            var result = $"{Type}-{Port} Latitude:{Latitude} Longitude:{Longitude} FixTaken:{FixTaken} Quality:{FixQuality} SatCount:{NumberOfSatellites} HDop:{HorizontalPod:N1} Altitude:{AltitudeMetres} Geoid:{HeightOfGeoid} LastUpdate:{SecondsSinceLastUpdateDGPS} DGPS:{StationIdNumberDGPS} ";
 
             return result;
         }

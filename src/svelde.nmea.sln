@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "svelde.nmea.app", "svelde.n
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "svelde.nmea.parser", "svelde.nmea.parser\svelde.nmea.parser.csproj", "{54E0D2E7-FEE2-46BC-A906-F59A93ACFDF0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{664B6083-C462-42AB-AB35-D9802F799EA5}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.txt = nuget.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

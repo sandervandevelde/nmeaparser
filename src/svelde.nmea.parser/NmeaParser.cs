@@ -9,61 +9,109 @@ namespace svelde.nmea.parser
     {
         private Dictionary<string, NmeaMessage> _parsers;
 
-        public NmeaParser()
+        public NmeaParser() : this(string.Empty)
+        {
+        }
+
+        public NmeaParser(string filter)
+        {
+            UpdateFilter(filter);
+        }
+
+        public void UpdateFilter(string filter)
         {
             _parsers = new Dictionary<string, NmeaMessage>();
 
             var gngga = new GnggaMessage();
-            gngga.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gngga.Type}", gngga);
+            if (!filter.ToUpper().Contains(gngga.Type))
+            {
+                gngga.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gngga.Type}", gngga);
+            }
 
             var gpgga = new GpggaMessage();
-            gpgga.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gpgga.Type}", gpgga);
+            if (!filter.ToUpper().Contains(gpgga.Type))
+            {
+                gpgga.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gpgga.Type}", gpgga);
+            }
 
-            var gll = new GngllMessage();
-            gll.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gll.Type}", gll);
+            var gngll = new GngllMessage();
+            if (!filter.ToUpper().Contains(gngll.Type))
+            {
+                gngll.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gngll.Type}", gngll);
+            }
 
             var gngsa = new GngsaMessage();
-            gngsa.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gngsa.Type}", gngsa);
+            if (!filter.ToUpper().Contains(gngsa.Type))
+            {
+                gngsa.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gngsa.Type}", gngsa);
+            }
 
             var gpgsa = new GpgsaMessage();
-            gpgsa.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gpgsa.Type}", gpgsa);
+            if (!filter.ToUpper().Contains(gpgsa.Type))
+            {
+                gpgsa.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gpgsa.Type}", gpgsa);
+            }
 
-            var gsv = new GpgsvMessage();
-            gsv.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gsv.Type}", gsv);
+            var gpgsv = new GpgsvMessage();
+            if (!filter.ToUpper().Contains(gpgsv.Type))
+            {
+                gpgsv.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gpgsv.Type}", gpgsv);
+            }
 
             var glgsv = new GlgsvMessage();
-            glgsv.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${glgsv.Type}", glgsv);
+            if (!filter.ToUpper().Contains(glgsv.Type))
+            {
+                glgsv.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${glgsv.Type}", glgsv);
+            }
 
             var gbgsv = new GbgsvMessage();
-            gbgsv.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gbgsv.Type}", gbgsv);
+            if (!filter.ToUpper().Contains(gbgsv.Type))
+            {
+                gbgsv.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gbgsv.Type}", gbgsv);
+            }
 
             var gnrmc = new GnrmcMessage();
-            gnrmc.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gnrmc.Type}", gnrmc);
+            if (!filter.ToUpper().Contains(gnrmc.Type))
+            {
+                gnrmc.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gnrmc.Type}", gnrmc);
+            }
 
             var gprmc = new GprmcMessage();
-            gprmc.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gprmc.Type}", gprmc);
+            if (!filter.ToUpper().Contains(gprmc.Type))
+            {
+                gprmc.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gprmc.Type}", gprmc);
+            }
 
-            var txt = new GntxtMessage();
-            txt.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${txt.Type}", txt);
+            var gntxt = new GntxtMessage();
+            if (!filter.ToUpper().Contains(gntxt.Type))
+            {
+                gntxt.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gntxt.Type}", gntxt);
+            }
 
             var gnvtg = new GnvtgMessage();
-            gnvtg.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gnvtg.Type}", gnvtg);
+            if (!filter.ToUpper().Contains(gnvtg.Type))
+            {
+                gnvtg.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gnvtg.Type}", gnvtg);
+            }
 
             var gpvtg = new GpvtgMessage();
-            gpvtg.NmeaMessageParsed += messageParsed;
-            _parsers.Add($"${gpvtg.Type}", gpvtg);
+            if (!filter.ToUpper().Contains(gpvtg.Type))
+            {
+                gpvtg.NmeaMessageParsed += messageParsed;
+                _parsers.Add($"${gpvtg.Type}", gpvtg);
+            }
         }
 
         private void messageParsed(object sender, NmeaMessage e)
@@ -88,6 +136,11 @@ namespace svelde.nmea.parser
                     throw new NmeaParseUnknownException();
                 }
 
+                if (nmeaLine.Length < 6)
+                {
+                    throw new NmeaParseUnknownException($"Incoming message '{nmeaLine}' is not nmea, Port {port} at {timestampUtc})");
+                }
+
                 if (_parsers.ContainsKey(nmeaLine.Substring(0, 6)))
                 {
                     var p = _parsers.First(x => x.Key == nmeaLine.Substring(0, 6)).Value;
@@ -99,7 +152,7 @@ namespace svelde.nmea.parser
                 }
                 else
                 {
-                    Console.WriteLine($"No parser available for {nmeaLine.Substring(0, 6)}");
+                    Console.WriteLine($"No parser available for {nmeaLine}");
                 }
             }
             catch (NmeaParseChecksumException)

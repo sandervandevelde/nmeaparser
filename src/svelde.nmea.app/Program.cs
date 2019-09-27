@@ -30,7 +30,7 @@ namespace svelde.nmea.app
 
             try
             {
-                var connectionString = "";
+                var connectionString = "HostName=iotc-6e7ea251-71bd-4024-a0a8-a8895ea79b7f.azure-devices.net;DeviceId=GeoTracker1;SharedAccessKey=a99ZyFyYPR0tQl7vWK75y4C3YveuQmK118LYEgsYC5c=";
 
                 _deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
 

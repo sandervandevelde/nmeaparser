@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace svelde.nmea.parser
 {
@@ -7,11 +8,16 @@ namespace svelde.nmea.parser
     /// </summary>
     public abstract class NmeaMessage
     {
+        [JsonProperty(PropertyName = "type")]
         public string Type {get; set;}
+
+        [JsonProperty(PropertyName = "port")]
         public string Port { get; set; }
 
+        [JsonProperty(PropertyName = "timestampUtc")]
         public DateTime TimestampUtc { get; set; }
 
+        [JsonProperty(PropertyName = "mandatoryChecksum")]
         public string MandatoryChecksum { get; set; }
 
         /// <summary>

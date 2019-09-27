@@ -67,7 +67,7 @@ namespace svelde.nmea.parser
 
         public override string ToString()
         {
-            var result = $"{Type}-{Port} Latitude:{Latitude} Longitude:{Longitude} Fix:{FixTaken} Valid:{DataValid} Mode:{ModeIndicator}";
+            var result = $"{Type}-{Port} Latitude:{Latitude} Longitude:{Longitude} FixTaken:{FixTaken} Valid:{DataValid} Mode:{ModeIndicator}";
 
             return result;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace svelde.nmea.parser
 {
@@ -12,6 +13,7 @@ namespace svelde.nmea.parser
             Degree = degree;
         }
 
+        [JsonProperty(PropertyName = "degree")]
         public string Degree { get; private set; }
 
         /// <summary>
