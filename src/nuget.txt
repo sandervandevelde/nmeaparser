@@ -19,4 +19,5 @@ Login in nuget.org with your Microsoft account
 
 Upload your module to the Nuget portal
 
-Do not forget to add some comments.
+Do not forget to add some comments 
+  - eg. take the raw text from URL 'https://raw.githubusercontent.com/sandervandevelde/nmeaparser/master/README.md'.

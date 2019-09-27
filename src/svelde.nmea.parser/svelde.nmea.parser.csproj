@@ -2,28 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <IsPackable>false</IsPackable>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Authors></Authors>
-    <Company />
-    <Description></Description>
-    <Copyright>Copyright 2019</Copyright>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageTags></PackageTags>
-    <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <Product>Svelde.NmeaParser</Product>
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <PackageId />
-    <Version>1.0.1</Version>
-    <dependencies>
-      <dependency id="Newtonsoft.Json" version="12.0" />
-    </dependencies>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
 </Project>

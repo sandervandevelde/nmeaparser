@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>svelde-nmea-parser</id>
-    <version>1.0.1</version>
+    <version>1.0.5</version>
     <title>Svelde.NmeaParser</title>
     <authors>svelde</authors>
     <owners>svelde</owners>
@@ -17,10 +17,10 @@
     <tags>GPS NMEA NMEA-Parser</tags>
     <summary>This is a parser for NMEA messages. Currently it parses GSV, GGA, GSA, GLL, GMC, VTG and TXT. After parsing, it exposes an event with the NMEA message. It combines multiple GSV and GSA messages into one message event.</summary>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="12.0" />
+      <dependency id="Newtonsoft.Json" version="12.0.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\netcoreapp2.1\svelde.nmea.parser.dll" target="lib\netcore\2.1\svelde.nmea.parser.dll" />
+    <file src="bin\Release\netcoreapp2.1\svelde.nmea.parser.dll" target="\lib\netcoreapp" />
   </files>
 </package>
