@@ -26,6 +26,10 @@ The parser parses message like '$GNGLL,4513.13795,N,01859.19702,E,143717.00,A,A*
 
 Once the message is parsed, a derived NmeaMessage is made available in the 'NmeaMessageParsed' event.
 
+### Multiple parsers?
+
+If you have multiple NMEA devices please check out the 'NmeaParserList' class. This class is designed to support multiple parsers without crossing input.
+
 ## Why events?
 
 The event is used because some NMEA messages are splitted up in multiple sentences like GSA and GSV.
