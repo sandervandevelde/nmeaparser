@@ -60,7 +60,7 @@ The following devices are used to test the parser:
 * Webio GRB-288 Bluetooth GPS mouse 
 * GSpace GS-R238 GPS mouse (SiRFstarIII)
 
-*Note: If you want to have your GPS device tested and officially supported here, please send me a DM in twitter @svelde*
+*Note: If you want to have your GPS device tested and officially supported here, please send me a DM on github or twitter @svelde*
 
 ## Azure IoT Edge
 
